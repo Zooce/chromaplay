@@ -37,8 +37,16 @@ function ColorControls() {
   const [v2, setV2] = createSignal(0);
   const [v3, setV3] = createSignal(0);
 
+  const backgroundColor = () => {
+    switch (colorMode()) {
+      case 'RGB': return `rgb(${v1()}, ${v2()}, ${v3()})`;
+      case 'HSL': return `hsl(${v1()}, ${v2()}%, ${v3()}%)`;
+    }
+  }
+
   return (
     <div class="color-control-container">
+      <div style={{width:`100px`,height:`100px`,"background-color":backgroundColor()}}></div>
       <input type="text" maxlength="7" value={`${v1()} ${v2()} ${v3()}`}/>
       <ColorComponentControl index={0} value={v1()} setValue={setV1} />
       <ColorComponentControl index={1} value={v2()} setValue={setV2} />
