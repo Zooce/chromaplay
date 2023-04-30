@@ -1,45 +1,48 @@
-import styles from './App.module.css';
-import { createSignal } from 'solid-js';
+import styles from "./App.module.css";
+import { createSignal } from "solid-js";
 
-const [colorMode, setColorMode] = createSignal('RGB');
+const [colorMode, setColorMode] = createSignal("RGB");
 
 function ColorComponentControl(props) {
-  const [value, setValue] = createSignal(0);
-
-  const maxValue = () => colorMode() === 'RGB' ? 255 : (props.index === 0 ? 360 : 100);
+  const maxValue = () => colorMode() === "RGB" ? 255 : (props.index === 0 ? 360 : 100);
 
   const onNumberInput = (e) => {
     try {
       const newValue = parseInt(e.target.value);
       if (isNaN(newValue) || newValue < 0) return;
       switch (colorMode()) {
-        case 'RGB':
+        case "RGB":
           if (newValue > 255) return;
           break;
-        case 'HSL':
+        case "HSL":
           if ((props.index === 0 && newValue > 360) || (props.index !== 0 && newValue > 100)) return;
           break;
       }
-      setValue(newValue);
+      props.setValue(newValue);
     } catch {
       // ignore bad values
     }
   }
   return (
-    <div class='color-component-control'>
+    <div class="color-component-control">
       <label for={colorMode()[props.index]}>{colorMode()[props.index]}</label>
-      <input type='range' min='0' max={maxValue()} value={value()} onInput={(e) => setValue(e.target.value)} />
-      <input type='number' min='0' max={maxValue()} value={value()} onInput={onNumberInput} />
+      <input type="range" min="0" max={maxValue()} value={props.value} onInput={(e) => props.setValue(e.target.value)} />
+      <input type="number" min="0" max={maxValue()} value={props.value} onInput={onNumberInput} />
     </div>
   );
 }
 
 function ColorControls() {
+  const [v1, setV1] = createSignal(0);
+  const [v2, setV2] = createSignal(0);
+  const [v3, setV3] = createSignal(0);
+
   return (
-    <div class='color-control-container'>
-      <For each={[0, 1, 2]}>{(i) =>
-        <ColorComponentControl index={i} />
-      }</For>
+    <div class="color-control-container">
+      <input type="text" maxlength="7" value={`${v1()} ${v2()} ${v3()}`}/>
+      <ColorComponentControl index={0} value={v1()} setValue={setV1} />
+      <ColorComponentControl index={1} value={v2()} setValue={setV2} />
+      <ColorComponentControl index={2} value={v3()} setValue={setV3} />
     </div>
   );
 }
