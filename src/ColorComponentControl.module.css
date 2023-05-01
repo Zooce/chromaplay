@@ -1,0 +1,14 @@
+.ColorComponentControl {
+  display: flex;
+  align-items: center;
+  font-family: monospace;
+  gap: 0.5rem;
+}
+
+.Range {
+  width: 6rem;
+}
+
+.Number {
+  width: 3rem;
+}

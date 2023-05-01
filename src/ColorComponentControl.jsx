@@ -1,3 +1,4 @@
+import styles from "./ColorComponentControl.module.css";
 import { colorMode } from "./colorMode";
 
 function ColorComponentControl(props) {
@@ -29,10 +30,10 @@ function ColorComponentControl(props) {
   }
 
   return (
-    <div class="color-component-control">
+    <div class={styles.ColorComponentControl}>
       <label for={colorMode()[props.index]}>{colorMode()[props.index]}</label>
-      <input type="range" min="0" max={maxValue()} value={props.value} onInput={onInput} />
-      <input type="number" min="0" max={maxValue()} value={props.value} onInput={onInput} />
+      <input class={styles.Range} type="range" min="0" max={maxValue()} value={props.value} onInput={onInput} />
+      <input class={styles.Number} type="number" min="0" max={maxValue()} value={props.value} onInput={onInput} />
     </div>
   );
 }

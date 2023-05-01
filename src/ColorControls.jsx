@@ -1,6 +1,7 @@
 import { createSignal, createMemo, createEffect, untrack } from "solid-js";
 import ColorComponentControl from "./ColorComponentControl";
 import { colorMode } from "./colorMode";
+import styles from "./ColorControls.module.css";
 
 function ColorControls() {
   const [v1, setV1] = createSignal(0);
@@ -154,12 +155,14 @@ function ColorControls() {
   }
 
   return (
-    <div class="color-control-container">
-      <div style={{ width: `100px`, height: `100px`, "background-color": backgroundColor() }}></div>
-      <input type="text" maxlength="7" value={hex()} onInput={hexInput} />
-      <ColorComponentControl index={0} value={v1()} setValue={setV1} />
-      <ColorComponentControl index={1} value={v2()} setValue={setV2} />
-      <ColorComponentControl index={2} value={v3()} setValue={setV3} />
+    <div class={styles.ColorControls}>
+      <div class={styles.ColorBlock} style={{"background-color": backgroundColor()}}></div>
+      <input class={styles.HexInput} type="text" maxlength="7" value={hex()} onInput={hexInput} />
+      <div>
+        <ColorComponentControl index={0} value={v1()} setValue={setV1} />
+        <ColorComponentControl index={1} value={v2()} setValue={setV2} />
+        <ColorComponentControl index={2} value={v3()} setValue={setV3} />
+      </div>
     </div>
   );
 }
