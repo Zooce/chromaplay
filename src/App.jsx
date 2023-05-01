@@ -53,12 +53,12 @@ function ColorControls() {
   // recalculate the values whenever `colorMode` changes
   createEffect(() => {
     if (colorMode() === 'RGB') {
-      const { r, g, b } = hslToRgb(untrack(v1), untrack(v2), untrack(v3));
+      const [ r, g, b ] = hslToRgb(untrack(v1), untrack(v2), untrack(v3));
       setV1(r);
       setV2(g);
       setV3(b);
     } else {
-      const { h, s, l } = rgbToHsl(untrack(v1), untrack(v2), untrack(v3));
+      const [ h, s, l ] = rgbToHsl(untrack(v1), untrack(v2), untrack(v3));
       setV1(h);
       setV2(s);
       setV3(l);
@@ -115,7 +115,7 @@ function ColorControls() {
     s = parseFloat((s * 100).toFixed(1));
     l = parseFloat((l * 100).toFixed(1));
 
-    return { h, s, l };
+    return [ h, s, l ];
   }
 
   const hslToRgb = (h, s, l) => {
@@ -160,13 +160,46 @@ function ColorControls() {
     g = Math.round((g + m) * 255);
     b = Math.round((b + m) * 255);
 
-    return { r, g, b };
+    return [ r, g, b ];
+  }
+
+  const hex = () => {
+    let color = [v1(), v2(), v3()];
+    if (colorMode() === 'HSL') {
+      color = hslToRgb(...color)
+    }
+    return `#${color.map(c => c.toString(16).padStart(2, 0)).join('')}`
+  }
+
+  const hexInput = (event) => {
+    let newHex = event.target.value;
+    if (newHex.length === 6 && !newHex.startsWith('#')) {
+      newHex = `#${newHex}`;
+    } else if (newHex.length !== 7) {
+      return;
+    }
+    try {
+      const [r, g, b] = [
+        parseInt(newHex.substring(1, 3), 16),
+        parseInt(newHex.substring(3, 5), 16),
+        parseInt(newHex.substring(5), 16)
+      ];
+      let values = [r, g, b];
+      if (untrack(colorMode) === 'HSV') {
+        values = rgbToHsl(r, g, b);
+      }
+      setV1(values[0]);
+      setV2(values[1]);
+      setV3(values[2]);
+    } catch {
+      // invalid hex color input - just ignore it
+    }
   }
 
   return (
     <div class="color-control-container">
       <div style={{width:`100px`,height:`100px`,"background-color":backgroundColor()}}></div>
-      <input type="text" maxlength="7" value={`${v1()} ${v2()} ${v3()}`}/>
+      <input type="text" maxlength="7" value={hex()} onInput={hexInput} />
       <ColorComponentControl index={0} value={v1()} setValue={setV1} />
       <ColorComponentControl index={1} value={v2()} setValue={setV2} />
       <ColorComponentControl index={2} value={v3()} setValue={setV3} />
