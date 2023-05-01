@@ -1,6 +1,6 @@
 {
-  "name": "vite-template-solid",
-  "version": "0.0.0",
+  "name": "chromaplay",
+  "version": "0.0.1",
   "description": "",
   "scripts": {
     "start": "vite",
@@ -15,5 +15,6 @@
   },
   "dependencies": {
     "solid-js": "^1.6.10"
-  }
+  },
+  "type": "module"
 }
