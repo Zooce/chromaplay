@@ -121,9 +121,10 @@ function ColorControls() {
     return [r, g, b];
   }
 
+  // update the hex value whenever a color component value changes
   const hex = () => {
     let color = [v1(), v2(), v3()];
-    if (colorMode() === 'HSL') {
+    if (untrack(colorMode) === 'HSL') {
       color = hslToRgb(...color)
     }
     return `#${color.map(c => c.toString(16).padStart(2, 0)).join('')}`
