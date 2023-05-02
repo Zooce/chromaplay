@@ -7,7 +7,7 @@ function App() {
   return (
     <div class={styles.App}>
       <select onChange={(event) => setColorMode(event.target.value)}>
-        <option value="RGB">RGB</option>
+        <option value="RGB" selected>RGB</option>
         <option value="HSL">HSL</option>
       </select>
       <ColorControls />
