@@ -3,7 +3,7 @@ import ColorComponentControl from "./ColorComponentControl";
 import { colorMode } from "./colorMode";
 import styles from "./ColorControls.module.css";
 
-function ColorControls() {
+function ColorControls(props) {
   const [v1, setV1] = createSignal(0);
   const [v2, setV2] = createSignal(0);
   const [v3, setV3] = createSignal(0);
@@ -31,8 +31,14 @@ function ColorControls() {
       case 'RGB': bg = `rgb(${x}, ${y}, ${z})`; break;
       case 'HSL': bg = `hsl(${x}, ${y}%, ${z}%)`; break;
     }
-    return { "background-color": bg };
+    let style = { "background-color": bg };
+    if (props.selected()) {
+      style = { ...style, "outline": "dodgerblue solid", "outline-offset": "0.1rem" };
+    }
+    return style;
   });
+
+  const colorClick = () => props.setSelected(!props.selected());
 
   const rgbToHsl = (r, g, b) => {
     // normalize RGB values
@@ -160,7 +166,7 @@ function ColorControls() {
 
   return (
     <div class={styles.ColorControls}>
-      <div class={styles.ColorBlock} style={backgroundColor()}></div>
+      <div class={styles.ColorBlock} style={backgroundColor()} onClick={colorClick}></div>
       <input class={styles.HexInput} type="text" maxlength="7" value={hex()} onInput={hexInput} />
       <div>
         <ColorComponentControl index={0} value={v1()} setValue={setV1} />
