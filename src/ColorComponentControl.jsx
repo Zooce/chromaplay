@@ -1,8 +1,10 @@
 import styles from "./ColorComponentControl.module.css";
 import { colorMode } from "./colorMode";
+import { createMemo } from "solid-js";
 
 function ColorComponentControl(props) {
-  const maxValue = () => colorMode() === "RGB" ? 255 : (props.index === 0 ? 360 : 100);
+  const maxValue = createMemo(() => colorMode() === "RGB" ? 255 : (props.index === 0 ? 360 : 100));
+  const label = createMemo(() => colorMode()[props.index]);
 
   const onInput = (event) => {
     try {
@@ -31,7 +33,7 @@ function ColorComponentControl(props) {
 
   return (
     <div class={styles.ColorComponentControl}>
-      <label for={colorMode()[props.index]}>{colorMode()[props.index]}</label>
+      <label for={label()}>{label()}</label>
       <input class={styles.Range} type="range" min="0" max={maxValue()} value={props.value} onInput={onInput} />
       <input class={styles.Number} type="number" min="0" max={maxValue()} value={props.value} onInput={onInput} />
     </div>
