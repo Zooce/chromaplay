@@ -23,12 +23,15 @@ function ColorControls() {
     }
   });
 
+  // update the background color whenever a color component value changes
   const backgroundColor = createMemo(() => {
     const x = v1(), y = v2(), z = v3();
-    switch (colorMode()) {
-      case 'RGB': return `rgb(${x}, ${y}, ${z})`;
-      case 'HSL': return `hsl(${x}, ${y}%, ${z}%)`;
+    let bg;
+    switch (untrack(colorMode)) {
+      case 'RGB': bg = `rgb(${x}, ${y}, ${z})`; break;
+      case 'HSL': bg = `hsl(${x}, ${y}%, ${z}%)`; break;
     }
+    return { "background-color": bg };
   });
 
   const rgbToHsl = (r, g, b) => {
@@ -157,7 +160,7 @@ function ColorControls() {
 
   return (
     <div class={styles.ColorControls}>
-      <div class={styles.ColorBlock} style={{"background-color": backgroundColor()}}></div>
+      <div class={styles.ColorBlock} style={backgroundColor()}></div>
       <input class={styles.HexInput} type="text" maxlength="7" value={hex()} onInput={hexInput} />
       <div>
         <ColorComponentControl index={0} value={v1()} setValue={setV1} />
