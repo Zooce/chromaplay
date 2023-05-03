@@ -2,7 +2,7 @@ import styles from "./App.module.css";
 import ColorControls from "./ColorControls";
 import { createSignal, untrack, onMount, createEffect } from "solid-js";
 
-import { setColorMode } from "./colorMode";
+import { RGB, HSL, setColorMode } from "./colorMode";
 import { v4 as uuid } from "uuid";
 
 function App() {
@@ -37,8 +37,8 @@ function App() {
     <div class={styles.App}>
       <div class={styles.GlobalControls}>
         <select onChange={(event) => setColorMode(event.target.value)}>
-          <option value="RGB" selected>RGB</option>
-          <option value="HSL">HSL</option>
+          <option value={RGB} selected>{RGB}</option>
+          <option value={HSL}>{HSL}</option>
         </select>
         <button onClick={addColor}>Add Color</button>
         <button ref={deleteButton} onClick={deleteSelected} disabled>Delete Selected</button>

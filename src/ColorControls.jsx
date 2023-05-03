@@ -1,6 +1,6 @@
 import { createSignal, createMemo, createEffect, untrack } from "solid-js";
 import ColorComponentControl from "./ColorComponentControl";
-import { colorMode } from "./colorMode";
+import { RGB, HSL, colorMode } from "./colorMode";
 import styles from "./ColorControls.module.css";
 
 function ColorControls(props) {
@@ -10,7 +10,7 @@ function ColorControls(props) {
 
   // recalculate the values whenever `colorMode` changes
   createEffect(() => {
-    if (colorMode() === 'RGB') {
+    if (colorMode() === RGB) {
       const [r, g, b] = hslToRgb(untrack(v1), untrack(v2), untrack(v3));
       setV1(r);
       setV2(g);
@@ -28,8 +28,8 @@ function ColorControls(props) {
     const x = v1(), y = v2(), z = v3();
     let bg;
     switch (untrack(colorMode)) {
-      case 'RGB': bg = `rgb(${x}, ${y}, ${z})`; break;
-      case 'HSL': bg = `hsl(${x}, ${y}%, ${z}%)`; break;
+      case RGB: bg = `rgb(${x}, ${y}, ${z})`; break;
+      case HSL: bg = `hsl(${x}, ${y}%, ${z}%)`; break;
     }
     let style = { "background-color": bg };
     if (props.selected()) {
@@ -133,7 +133,7 @@ function ColorControls(props) {
   // update the hex value whenever a color component value changes
   const hex = () => {
     let color = [v1(), v2(), v3()];
-    if (untrack(colorMode) === 'HSL') {
+    if (untrack(colorMode) === HSL) {
       color = hslToRgb(...color)
     }
     return `#${color.map(c => c.toString(16).padStart(2, 0)).join('')}`
@@ -153,7 +153,7 @@ function ColorControls(props) {
         parseInt(newHex.substring(5), 16)
       ];
       let values = [r, g, b];
-      if (untrack(colorMode) === 'HSV') {
+      if (untrack(colorMode) === HSL) {
         values = rgbToHsl(r, g, b);
       }
       setV1(values[0]);

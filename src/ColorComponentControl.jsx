@@ -1,20 +1,20 @@
 import styles from "./ColorComponentControl.module.css";
-import { colorMode } from "./colorMode";
+import { RGB, HSL, colorMode } from "./colorMode";
 import { createMemo } from "solid-js";
 
 function ColorComponentControl(props) {
-  const maxValue = createMemo(() => colorMode() === "RGB" ? 255 : (props.index === 0 ? 360 : 100));
+  const maxValue = createMemo(() => colorMode() === RGB ? 255 : (props.index === 0 ? 360 : 100));
   const label = createMemo(() => colorMode()[props.index]);
 
   const onInput = (event) => {
     try {
       let newValue;
       switch (colorMode()) {
-        case "RGB":
+        case RGB:
           newValue = parseInt(event.target.value);
           if (newValue > 255) return;
           break;
-        case "HSL":
+        case HSL:
           if (props.index === 0) {
             newValue = parseInt(event.target.value);
             if (newValue > 360) return;
