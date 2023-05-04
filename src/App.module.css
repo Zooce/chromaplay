@@ -18,3 +18,32 @@
   justify-content: center;
   gap: 1rem;
 }
+
+.PortalContainer {
+  width: 100%;
+  height: 20rem;
+  position: fixed;
+  top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.BackgroundColorPopup {
+  background-color: rgba(50, 50, 50, 0.9);
+  width: 13.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  left: calc(50% - (13.5rem / 2));
+}
+
+.ClosePopupButton {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 1.5rem;
+  border: none;
+  align-self: flex-end;
+}

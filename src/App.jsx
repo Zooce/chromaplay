@@ -33,6 +33,18 @@ function App() {
     }
   });
 
+  let backgroundColorButton;
+  const [showBackgroundColor, setShowBackgroundColor] = createSignal(false);
+  const toggleBackgroundColorControls = () => {
+    setShowBackgroundColor(!showBackgroundColor());
+  }
+
+  const [backgroundColor, setBackgroundColor] = createSignal("#ffffff");
+  createEffect(() => {
+    const root = document.documentElement;
+    root.style.backgroundColor = backgroundColor();
+  });
+
   return (
     <div class={styles.App}>
       <div class={styles.GlobalControls}>
@@ -42,6 +54,9 @@ function App() {
         </select>
         <button onClick={addColor}>Add Color</button>
         <button ref={deleteButton} onClick={deleteSelected} disabled>Delete Selected</button>
+        <button ref={backgroundColorButton} onClick={toggleBackgroundColorControls}>
+          {showBackgroundColor() ? 'Hide' : 'Show'} Background Color
+        </button>
       </div>
       <div class={styles.Colors}>
         <For each={colors()}>{(color, i) =>
@@ -50,6 +65,16 @@ function App() {
           </div>
         }</For>
       </div>
+      <Show when={showBackgroundColor()}>
+        <Portal>
+          <div class={styles.PortalContainer}>
+            <div class={styles.BackgroundColorPopup}>
+              {/* <button class={styles.ClosePopupButton} onClick={hideBackgroundColorControls}>X</button> */}
+              <ColorControls initialColor={backgroundColor()} setBackgroundColor={setBackgroundColor} />
+            </div>
+          </div>
+        </Portal>
+      </Show>
     </div>
   );
 }

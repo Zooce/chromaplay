@@ -5,12 +5,19 @@ import { rgbToHsl, hslToRgb, hexToRgb, hexToHsl } from "./colorUtils";
 import styles from "./ColorControls.module.css";
 
 function ColorControls(props) {
-  const [v1, setV1] = createSignal(0);
-  const [v2, setV2] = createSignal(0);
-  const [v3, setV3] = createSignal(0);
+  const initialColor = props.initialColor;
+
+  const [x, y, z] = initialColor ? (colorMode() === RGB ? hexToRgb(initialColor) : hexToHsl(initialColor)) : [0, 0, 0];
+
+  const [v1, setV1] = createSignal(x);
+  const [v2, setV2] = createSignal(y);
+  const [v3, setV3] = createSignal(z);
 
   // recalculate the values whenever `colorMode` changes
-  createEffect(() => {
+  createEffect((prevColorMode) => {
+    if (prevColorMode === colorMode()) {
+      return;
+    }
     if (colorMode() === RGB) {
       const [r, g, b] = hslToRgb(untrack(v1), untrack(v2), untrack(v3));
       setV1(r);
@@ -22,7 +29,8 @@ function ColorControls(props) {
       setV2(s);
       setV3(l);
     }
-  });
+    return colorMode();
+  }, colorMode());
 
   // update the background color whenever a color component value changes
   const backgroundColor = createMemo(() => {
@@ -33,13 +41,13 @@ function ColorControls(props) {
       case HSL: bg = `hsl(${x}, ${y}%, ${z}%)`; break;
     }
     let style = { "background-color": bg };
-    if (props.selected()) {
+    if (props.selected && props.selected()) {
       style = { ...style, "outline": "dodgerblue solid", "outline-offset": "0.1rem" };
     }
     return style;
   });
 
-  const colorClick = () => props.setSelected(!props.selected());
+  const colorClick = () => { if (props.selected) props.setSelected(!props.selected()); };
 
   // update the hex value whenever a color component value changes
   const hex = () => {
@@ -47,7 +55,11 @@ function ColorControls(props) {
     if (untrack(colorMode) === HSL) {
       color = hslToRgb(...color)
     }
-    return `#${color.map(c => c.toString(16).padStart(2, 0)).join('')}`
+    const hexColor = `#${color.map(c => c.toString(16).padStart(2, 0)).join('')}`;
+    if (props.setBackgroundColor) {
+      props.setBackgroundColor(hexColor);
+    }
+    return hexColor;
   }
 
   const hexInput = (event) => {
