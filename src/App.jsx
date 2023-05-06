@@ -69,7 +69,6 @@ function App() {
         <Portal>
           <div class={styles.PortalContainer}>
             <div class={styles.BackgroundColorPopup}>
-              {/* <button class={styles.ClosePopupButton} onClick={hideBackgroundColorControls}>X</button> */}
               <ColorControls initialColor={backgroundColor()} setBackgroundColor={setBackgroundColor} />
             </div>
           </div>
