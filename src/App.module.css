@@ -9,7 +9,9 @@
   display: flex;
   gap: 1rem;
   border-bottom: 0.1rem solid black;
-  padding-bottom: 1rem;
+  padding: 1rem 0;
+  position: fixed;
+  top: 0;
 }
 
 .Colors {
@@ -17,6 +19,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  margin-top: 3.5rem;
 }
 
 .PortalContainer {

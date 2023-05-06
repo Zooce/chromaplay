@@ -47,7 +47,7 @@ function App() {
 
   return (
     <div class={styles.App}>
-      <div class={styles.GlobalControls}>
+      <div class={styles.GlobalControls} style={{ "background-color": backgroundColor() }}>
         <select onChange={(event) => setColorMode(event.target.value)}>
           <option value={RGB} selected>{RGB}</option>
           <option value={HSL}>{HSL}</option>
