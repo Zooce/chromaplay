@@ -7,11 +7,13 @@
 
 .GlobalControls {
   display: flex;
+  justify-content: center;
   gap: 1rem;
   border-bottom: 0.1rem solid;
   padding: 1rem 0;
   position: fixed;
   top: 0;
+  width: calc(100% - 2rem);
 }
 
 .Colors {
