@@ -1,7 +1,7 @@
 import styles from "./App.module.css";
 import ColorControls from "./ColorControls";
 import { createSignal, untrack, onMount, createEffect } from "solid-js";
-import { RGB, HSL, setColorMode, globalBackgroundColor, setGlobalBackgroundColor } from "./colorGlobal";
+import { RGB, HSL, setColorMode, globalBackgroundColor, setGlobalBackgroundColor, showControls, setShowControls } from "./global";
 import { v4 as uuid } from "uuid";
 
 function App() {
@@ -55,6 +55,7 @@ function App() {
         <button ref={backgroundColorButton} onClick={toggleBackgroundColorControls}>
           {showBackgroundColor() ? 'Hide' : 'Show'} Background Color
         </button>
+        <button onClick={() => setShowControls(!showControls())}>{showControls() ? 'Hide' : 'Show'} Controls</button>
       </div>
       <div class={styles.Colors}>
         <For each={colors()}>{(color, i) =>
