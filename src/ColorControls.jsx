@@ -97,7 +97,7 @@ function ColorControls(props) {
   return (
     <div class={styles.ColorControls}>
       <div class={styles.ColorBlock} style={backgroundColor()} onClick={colorClick}></div>
-      <Show when={showControls()}>
+      <Show when={showControls() || props.initialColor}>
         <div class={styles.InfoLine}>
           <input class={styles.HexInput} type="text" maxlength="7" value={hex()} onInput={hexInput} />
           <div class={styles.ContrastRatio}>
