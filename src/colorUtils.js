@@ -98,3 +98,21 @@ export const hexToHsl = (hexColor) => {
   const rgb = hexToRgb(hexColor);
   return rgbToHsl(...rgb);
 }
+
+export const relativeLuminance = (r, g, b) => {
+  // ref: https://www.w3.org/TR/WCAG20/#relativeluminancedef
+  const S = (c) => {
+    const s = c / 255;
+    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+  };
+  return 0.2126 * S(r) + 0.7152 * S(g) + 0.0722 * S(b) + 0.05;
+};
+
+export const contrastRatio = (rgb1, rgb2) => {
+  // ref: https://www.w3.org/TR/WCAG20/#contrast-ratiodef
+  // black === 0.05
+  // white === 1.05
+  const L1 = relativeLuminance(...rgb1);
+  const L2 = relativeLuminance(...rgb2);
+  return L1 > L2 ? L1 / L2 : L2 / L1;
+};
