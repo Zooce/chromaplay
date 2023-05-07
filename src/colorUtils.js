@@ -108,7 +108,7 @@ export const relativeLuminance = (r, g, b) => {
   return 0.2126 * S(r) + 0.7152 * S(g) + 0.0722 * S(b) + 0.05;
 };
 
-export const contrastRatio = (rgb1, rgb2) => {
+export const calcContrastRatio = (rgb1, rgb2) => {
   // ref: https://www.w3.org/TR/WCAG20/#contrast-ratiodef
   // black === 0.05
   // white === 1.05

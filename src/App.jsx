@@ -1,8 +1,7 @@
 import styles from "./App.module.css";
 import ColorControls from "./ColorControls";
 import { createSignal, untrack, onMount, createEffect } from "solid-js";
-import { hexToRgb } from "./colorUtils";
-import { RGB, HSL, setColorMode } from "./colorMode";
+import { RGB, HSL, setColorMode, globalBackgroundColor, setGlobalBackgroundColor } from "./colorGlobal";
 import { v4 as uuid } from "uuid";
 
 function App() {
@@ -39,15 +38,14 @@ function App() {
     setShowBackgroundColor(!showBackgroundColor());
   }
 
-  const [backgroundColor, setBackgroundColor] = createSignal("#ffffff");
   createEffect(() => {
     const root = document.documentElement;
-    root.style.backgroundColor = backgroundColor();
+    root.style.backgroundColor = globalBackgroundColor();
   });
 
   return (
     <div class={styles.App}>
-      <div class={styles.GlobalControls} style={{"background-color": backgroundColor()}}>
+      <div class={styles.GlobalControls} style={{"background-color": globalBackgroundColor()}}>
         <select onChange={(event) => setColorMode(event.target.value)}>
           <option value={RGB} selected>{RGB}</option>
           <option value={HSL}>{HSL}</option>
@@ -69,7 +67,7 @@ function App() {
         <Portal>
           <div class={styles.PortalContainer}>
             <div class={styles.BackgroundColorPopup}>
-              <ColorControls initialColor={backgroundColor()} setBackgroundColor={setBackgroundColor} />
+              <ColorControls initialColor={globalBackgroundColor()} setBackgroundColor={setGlobalBackgroundColor} />
             </div>
           </div>
         </Portal>

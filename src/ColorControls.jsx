@@ -1,7 +1,7 @@
 import { createSignal, createMemo, createEffect, untrack } from "solid-js";
 import ColorComponentControl from "./ColorComponentControl";
-import { RGB, HSL, colorMode } from "./colorMode";
-import { rgbToHsl, hslToRgb, hexToRgb, hexToHsl } from "./colorUtils";
+import { RGB, HSL, colorMode, globalBackgroundColor } from "./colorGlobal";
+import { rgbToHsl, hslToRgb, hexToRgb, hexToHsl, calcContrastRatio } from "./colorUtils";
 import styles from "./ColorControls.module.css";
 
 function ColorControls(props) {
@@ -83,10 +83,27 @@ function ColorControls(props) {
     }
   }
 
+  const [contrastRatio, setContrastRatio] = createSignal(0);
+  createEffect(() => {
+    let rgb1 = [v1(), v2(), v3()];
+    let rgb2 = hexToRgb(globalBackgroundColor());
+    if (untrack(colorMode) === HSL) {
+      rgb1 = hslToRgb(...color)
+    }
+    const cr = calcContrastRatio(rgb1, rgb2);
+    setContrastRatio(cr.toFixed(1));
+  });
+
   return (
     <div class={styles.ColorControls}>
       <div class={styles.ColorBlock} style={backgroundColor()} onClick={colorClick}></div>
-      <input class={styles.HexInput} type="text" maxlength="7" value={hex()} onInput={hexInput} />
+      <div class={styles.InfoLine}>
+        <input class={styles.HexInput} type="text" maxlength="7" value={hex()} onInput={hexInput} />
+        <div class={styles.ContrastRatio}>
+          <span>{contrastRatio()}</span>
+          <span>:1</span>
+        </div>
+      </div>
       <div>
         <ColorComponentControl index={0} value={v1()} setValue={setV1} />
         <ColorComponentControl index={1} value={v2()} setValue={setV2} />
