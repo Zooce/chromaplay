@@ -4,6 +4,9 @@
   align-items: center;
   gap: 0.5rem;
   width: 13rem;
+  padding-bottom: 0.5rem;
+  color: white;
+  background-color: rgba(0,0,0,0.5);
 }
 
 .ColorBlock {
