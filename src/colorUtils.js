@@ -110,6 +110,7 @@ export const relativeLuminance = (r, g, b) => {
 
 export const calcContrastRatio = (rgb1, rgb2) => {
   // ref: https://www.w3.org/TR/WCAG20/#contrast-ratiodef
+  // ref: https://www.w3.org/TR/WCAG20-TECHS/G17.html
   // black === 0.05
   // white === 1.05
   const L1 = relativeLuminance(...rgb1);
