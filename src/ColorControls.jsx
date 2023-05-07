@@ -88,11 +88,16 @@ function ColorControls(props) {
     let rgb1 = [v1(), v2(), v3()];
     let rgb2 = hexToRgb(globalBackgroundColor());
     if (untrack(colorMode) === HSL) {
-      rgb1 = hslToRgb(...color)
+      rgb1 = hslToRgb(...rgb1)
     }
     const cr = calcContrastRatio(rgb1, rgb2);
-    setContrastRatio(cr.toFixed(1));
+    setContrastRatio((Math.floor(cr * 100) / 100).toFixed(2));
   });
+
+  const contrastRatioStyle = () => {
+    const cr = contrastRatio();
+    return { color: cr >= 7 ? '#00ff91' : (cr >= 3 ? 'white' : '#ff003d')};
+  };
 
   return (
     <div class={styles.ColorControls}>
@@ -101,7 +106,7 @@ function ColorControls(props) {
         <div class={styles.InfoLine}>
           <input class={styles.HexInput} type="text" maxlength="7" value={hex()} onInput={hexInput} />
           <div class={styles.ContrastRatio}>
-            <span>{contrastRatio()}</span>
+            <span style={contrastRatioStyle()}>{contrastRatio()}</span>
             <span>:1</span>
           </div>
         </div>
