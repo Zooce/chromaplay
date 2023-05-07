@@ -5,7 +5,9 @@ import { RGB, HSL, setColorMode, globalBackgroundColor, setGlobalBackgroundColor
 import { v4 as uuid } from "uuid";
 
 function App() {
-  const [colors, setColors] = createSignal([]);
+  const [colors, setColors] = createSignal([], {
+    equals: false,
+  });
 
   const addColor = () => {
     const [selected, setSelected] = createSignal(false);
@@ -18,6 +20,18 @@ function App() {
   };
 
   const deleteSelected = () => setColors(colors().filter(c => !c.selected()));
+  const swapSelected = () => {
+    const newColors = untrack(colors);
+    const selected = newColors.reduce((p, c, i) => {
+      if (!c.selected()) return p;
+      c.setSelected(false);
+      p.push({ c, i });
+      return p;
+    }, []);
+    newColors.splice(selected[0].i, 1, selected[1].c);
+    newColors.splice(selected[1].i, 1, selected[0].c);
+    setColors(newColors);
+  };
 
   onMount(() => {
     addColor();
@@ -29,6 +43,15 @@ function App() {
       deleteButton.removeAttribute('disabled');
     } else {
       deleteButton.setAttribute('disabled', '');
+    }
+  });
+
+  let swapButton;
+  createEffect(() => {
+    if (colors().filter(c => c.selected()).length === 2) {
+      swapButton.removeAttribute('disabled');
+    } else {
+      swapButton.setAttribute('disabled', '');
     }
   });
 
@@ -56,6 +79,7 @@ function App() {
           {showBackgroundColor() ? 'Hide' : 'Show'} Background Color
         </button>
         <button onClick={() => setShowControls(!showControls())}>{showControls() ? 'Hide' : 'Show'} Controls</button>
+        <button ref={swapButton} onClick={swapSelected} disabled>Swap Selected</button>
       </div>
       <div class={styles.Colors}>
         <For each={colors()}>{(color, i) =>

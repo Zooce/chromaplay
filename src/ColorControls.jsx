@@ -42,7 +42,7 @@ function ColorControls(props) {
     }
     let style = { "background-color": bg };
     if (props.selected && props.selected()) {
-      style = { ...style, "outline": "dodgerblue solid", "outline-offset": "0.1rem" };
+      style = { ...style, "outline": "dodgerblue solid 3px", "outline-offset": "0.1rem" };
     }
     return style;
   });
