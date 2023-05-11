@@ -1,7 +1,10 @@
 import styles from "./App.module.css";
 import ColorControls from "./ColorControls";
-import { createSignal, untrack, onMount, createEffect } from "solid-js";
-import { RGB, HSL, setColorMode, globalBackgroundColor, setGlobalBackgroundColor, showControls, setShowControls } from "./global";
+import { createSignal, untrack, onMount, createEffect, createMemo } from "solid-js";
+import {
+  RGB, HSL, colorMode, setColorMode, globalBackgroundColor,
+  setGlobalBackgroundColor, showControls, setShowControls
+} from "./global";
 import { v4 as uuid } from "uuid";
 
 function App() {
@@ -37,25 +40,41 @@ function App() {
     addColor();
   });
 
+  const colorsSelected = createMemo(() => colors().some(c => c.selected()));
+
   let deleteButton;
   createEffect(() => {
-    if (colors().some(c => c.selected())) {
+    if (colorsSelected()) {
       deleteButton.removeAttribute('disabled');
     } else {
       deleteButton.setAttribute('disabled', '');
     }
   });
+  const deleteDisabled = createMemo(() => {
+    if (colorsSelected()) {
+      return { opacity: 1.0 };
+    } else {
+      return { opacity: 0.4 };
+    }
+  });
 
+  const twoColorsSelected = createMemo(() => colors().filter(c => c.selected()).length === 2);
   let swapButton;
   createEffect(() => {
-    if (colors().filter(c => c.selected()).length === 2) {
+    if (twoColorsSelected()) {
       swapButton.removeAttribute('disabled');
     } else {
       swapButton.setAttribute('disabled', '');
     }
   });
+  const swapDisabled = createMemo(() => {
+    if (twoColorsSelected()) {
+      return { opacity: 1.0 };
+    } else {
+      return { opacity: 0.4 };
+    }
+  });
 
-  let backgroundColorButton;
   const [showBackgroundColor, setShowBackgroundColor] = createSignal(false);
   const toggleBackgroundColorControls = () => {
     setShowBackgroundColor(!showBackgroundColor());
@@ -68,24 +87,29 @@ function App() {
 
   return (
     <div class={styles.App}>
-      <div class={styles.GlobalControls} style={{"background-color": globalBackgroundColor()}}>
-        <select onChange={(event) => setColorMode(event.target.value)}>
-          <option value={RGB} selected>{RGB}</option>
-          <option value={HSL}>{HSL}</option>
-        </select>
-        <button onClick={addColor}>Add Color</button>
-        <button ref={deleteButton} onClick={deleteSelected} disabled>Delete Selected</button>
-        <button ref={backgroundColorButton} onClick={toggleBackgroundColorControls}>
-          {showBackgroundColor() ? 'Hide' : 'Show'} Background Color
+      <div class={styles.GlobalControls} style={{ "background-color": globalBackgroundColor() }}>
+        <button onClick={() => setColorMode(colorMode() === RGB ? HSL : RGB)}>
+          <img src="src/assets/palette_FILL0_wght400_GRAD0_opsz48.svg" alt="color mode" />
         </button>
-        <button onClick={() => setShowControls(!showControls())}>{showControls() ? 'Hide' : 'Show'} Controls</button>
-        <button ref={swapButton} onClick={swapSelected} disabled>Swap Selected</button>
+        <button onClick={addColor}>
+          <img src="src/assets/add_FILL0_wght400_GRAD0_opsz48.svg" alt="add" />
+        </button>
+        <button ref={deleteButton} onClick={deleteSelected} disabled>
+          <img style={deleteDisabled()} src="src/assets/delete_FILL0_wght400_GRAD0_opsz48.svg" alt="delete" />
+        </button>
+        <button onClick={toggleBackgroundColorControls}>
+          <img src="src/assets/format_color_fill_FILL0_wght400_GRAD0_opsz48.svg" alt="background color" />
+        </button>
+        <button onClick={() => setShowControls(!showControls())}>
+          <img src="src/assets/settings_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
+        </button>
+        <button ref={swapButton} onClick={swapSelected} disabled>
+          <img style={swapDisabled()} src="src/assets/autorenew_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
+        </button>
       </div>
       <div class={styles.Colors}>
         <For each={colors()}>{(color, i) =>
-          <div id={`color_${color.id}`}>
-            <ColorControls index={i()} selected={color.selected} setSelected={color.setSelected} />
-          </div>
+          <ColorControls id={`color_${color.id}`} index={i()} selected={color.selected} setSelected={color.setSelected} />
         }</For>
       </div>
       <Show when={showBackgroundColor()}>

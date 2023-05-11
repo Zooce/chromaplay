@@ -96,7 +96,7 @@ function ColorControls(props) {
 
   const contrastRatioStyle = () => {
     const cr = contrastRatio();
-    return { color: cr >= 7 ? '#00ff91' : (cr >= 3 ? 'white' : '#ff003d')};
+    return { color: cr >= 7 ? '#00ff91' : (cr >= 3 ? 'white' : '#ff003d') };
   };
 
   return (
@@ -110,7 +110,7 @@ function ColorControls(props) {
             <span>:1</span>
           </div>
         </div>
-        <div style={{"padding-bottom": "0.5rem"}}>
+        <div style={{ "padding-bottom": "0.5rem" }}>
           <ColorComponentControl index={0} value={v1()} setValue={setV1} />
           <ColorComponentControl index={1} value={v2()} setValue={setV2} />
           <ColorComponentControl index={2} value={v3()} setValue={setV3} />
