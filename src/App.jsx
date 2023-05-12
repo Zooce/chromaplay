@@ -114,10 +114,8 @@ function App() {
       </div>
       <Show when={showBackgroundColor()}>
         <Portal>
-          <div class={styles.PortalContainer}>
-            <div class={styles.BackgroundColorPopup}>
-              <ColorControls initialColor={globalBackgroundColor()} setBackgroundColor={setGlobalBackgroundColor} />
-            </div>
+          <div class={styles.BackgroundColorPopup}>
+            <ColorControls initialColor={globalBackgroundColor()} setBackgroundColor={setGlobalBackgroundColor} />
           </div>
         </Portal>
       </Show>

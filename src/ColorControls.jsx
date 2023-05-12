@@ -101,19 +101,23 @@ function ColorControls(props) {
 
   return (
     <div class={styles.ColorControls}>
-      <div class={styles.ColorBlock} style={backgroundColor()} onClick={colorClick}></div>
+      <Show when={props.index !== undefined}>
+        <div class={styles.ColorBlock} style={backgroundColor()} onClick={colorClick}></div>
+      </Show>
       <Show when={showControls() || props.initialColor}>
-        <div class={styles.InfoLine}>
-          <input class={styles.HexInput} type="text" maxlength="7" value={hex()} onInput={hexInput} />
-          <div class={styles.ContrastRatio}>
-            <span style={contrastRatioStyle()}>{contrastRatio()}</span>
-            <span>:1</span>
+        <div class={styles.ControlsContainer}>
+          <div class={styles.InfoLine}>
+            <input class={styles.HexInput} type="text" maxlength="7" value={hex()} onInput={hexInput} aria-label="hex input" />
+            <div class={styles.ContrastRatio}>
+              <span style={contrastRatioStyle()}>{contrastRatio()}</span>
+              <span>:1</span>
+            </div>
           </div>
-        </div>
-        <div style={{ "padding-bottom": "0.5rem" }}>
-          <ColorComponentControl index={0} value={v1()} setValue={setV1} />
-          <ColorComponentControl index={1} value={v2()} setValue={setV2} />
-          <ColorComponentControl index={2} value={v3()} setValue={setV3} />
+          <div>
+            <ColorComponentControl index={0} value={v1()} setValue={setV1} />
+            <ColorComponentControl index={1} value={v2()} setValue={setV2} />
+            <ColorComponentControl index={2} value={v3()} setValue={setV3} />
+          </div>
         </div>
       </Show>
     </div>

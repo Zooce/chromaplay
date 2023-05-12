@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
   width: 13rem;
   color: white;
   background-color: rgba(0, 0, 0, 0.6);
@@ -11,6 +10,14 @@
 .ColorBlock {
   width: 100%;
   height: 8rem;
+}
+
+.ControlsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
 }
 
 .InfoLine {
