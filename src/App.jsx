@@ -101,7 +101,7 @@ function App() {
           <img src="src/assets/format_color_fill_FILL0_wght400_GRAD0_opsz48.svg" alt="background color" />
         </button>
         <button onClick={() => setShowControls(!showControls())}>
-          <img src="src/assets/settings_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
+          <img src="src/assets/tune_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
         </button>
         <button ref={swapButton} onClick={swapSelected} disabled>
           <img style={swapDisabled()} src="src/assets/autorenew_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
