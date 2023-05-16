@@ -34,8 +34,8 @@ function ColorComponentControl(props) {
   return (
     <div class={styles.ColorComponentControl}>
       <label for={label()}>{label()}</label>
-      <input class={styles.Range} type="range" min="0" max={maxValue()} value={props.value} onInput={onInput} />
-      <input class={styles.Number} type="number" min="0" max={maxValue()} value={props.value} onInput={onInput} />
+      <input type="range" min="0" max={maxValue()} value={props.value} onInput={onInput} />
+      <input type="number" min="0" max={maxValue()} value={props.value} onInput={onInput} />
     </div>
   );
 }

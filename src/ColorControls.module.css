@@ -2,29 +2,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 13rem;
+  width: 15rem;
   color: white;
   background-color: rgba(0, 0, 0, 0.6);
 }
 
 .ColorBlock {
   width: 100%;
-  height: 8rem;
+  height: 10rem;
 }
 
 .ControlsContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
+  display: grid;
+  grid-template-rows: auto auto;
+  row-gap: 0.5rem;
   padding: 0.5rem 0;
 }
 
 .InfoLine {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-items: center;
 }
 
 .HexInput {

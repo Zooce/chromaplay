@@ -1,15 +1,7 @@
 .ColorComponentControl {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: auto 6rem 3rem;
   font-family: monospace;
   font-size: 18px;
-  gap: 0.5rem;
-}
-
-.Range {
-  width: 6rem;
-}
-
-.Number {
-  width: 3rem;
+  column-gap: 0.5rem;
 }
