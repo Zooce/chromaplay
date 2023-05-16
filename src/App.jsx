@@ -88,19 +88,19 @@ function App() {
   return (
     <div class={styles.App}>
       <div class={styles.GlobalControls} style={{ "background-color": globalBackgroundColor() }}>
-        <button onClick={() => setColorMode(colorMode() === RGB ? HSL : RGB)}>
+        <button onClick={() => setColorMode(colorMode() === RGB ? HSL : RGB)} aria-label="color mode">
           <img src="src/assets/palette_FILL0_wght400_GRAD0_opsz48.svg" alt="color mode" />
         </button>
-        <button onClick={addColor}>
+        <button onClick={addColor} aria-label="add color">
           <img src="src/assets/add_FILL0_wght400_GRAD0_opsz48.svg" alt="add" />
         </button>
-        <button ref={deleteButton} onClick={deleteSelected} disabled>
+        <button ref={deleteButton} onClick={deleteSelected} disabled aria-label="delete selected colors">
           <img style={deleteDisabled()} src="src/assets/delete_FILL0_wght400_GRAD0_opsz48.svg" alt="delete" />
         </button>
-        <button onClick={toggleBackgroundColorControls}>
+        <button onClick={toggleBackgroundColorControls} aria-label="toggle background color controls">
           <img src="src/assets/format_color_fill_FILL0_wght400_GRAD0_opsz48.svg" alt="background color" />
         </button>
-        <button onClick={() => setShowControls(!showControls())}>
+        <button onClick={() => setShowControls(!showControls())} aria-label="swap selected colors">
           <img src="src/assets/tune_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
         </button>
         <button ref={swapButton} onClick={swapSelected} disabled>
