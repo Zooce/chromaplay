@@ -1,6 +1,6 @@
 .App {
   display: flex;
-  padding: 1rem;
+  padding: 4rem 1rem;
 }
 
 .GlobalControls {
@@ -27,7 +27,7 @@
 .BackgroundColorPopup {
   position: fixed;
   background-color: rgba(50, 50, 50, 0.9);
-  width: 15rem;
+  width: 17.5rem;
   padding: 1rem;
   top: 12rem;
   left: 5rem;

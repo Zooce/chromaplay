@@ -101,7 +101,7 @@ function ColorControls(props) {
 
   return (
     <div class={styles.ColorControls}>
-      <Show when={props.index !== undefined}>
+      <Show when={props.index != undefined}>
         <div class={styles.ColorBlock} style={backgroundColor()} onClick={colorClick}></div>
       </Show>
       <Show when={showControls() || props.initialColor}>
@@ -113,7 +113,7 @@ function ColorControls(props) {
               <span>:1</span>
             </div>
           </div>
-          <div>
+          <div class={styles.Sliders}>
             <ColorComponentControl index={0} value={v1()} setValue={setV1} />
             <ColorComponentControl index={1} value={v2()} setValue={setV2} />
             <ColorComponentControl index={2} value={v3()} setValue={setV3} />

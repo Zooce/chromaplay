@@ -2,33 +2,39 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 15rem;
   color: white;
   background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 2px;
 }
 
 .ColorBlock {
-  width: 100%;
   height: 10rem;
+  width: 17.5rem;
+  border-radius: 2px;
 }
 
 .ControlsContainer {
   display: grid;
   grid-template-rows: auto auto;
-  row-gap: 0.5rem;
-  padding: 0.5rem 0;
+  row-gap: 1rem;
+  padding: 1rem;
 }
 
 .InfoLine {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr 1fr;
   justify-items: center;
+  align-items: center;
 }
 
 .HexInput {
-  width: 3.5rem;
+  width: 5.5rem;
+  height: 2rem;
   font-family: 'Roboto Mono', monospace;
+  font-size: 18px;
   text-align: center;
+  border-radius: 2px;
+  border: none;
 }
 
 .ContrastRatio :first-child {
@@ -37,4 +43,10 @@
 
 .ContrastRatio :last-child {
   color: rgba(255, 255, 255, 0.5);
+}
+
+.Sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
