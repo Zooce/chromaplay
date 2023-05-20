@@ -100,10 +100,10 @@ function App() {
         <button onClick={toggleBackgroundColorControls} aria-label="toggle background color controls">
           <img src="src/assets/format_color_fill_FILL0_wght400_GRAD0_opsz48.svg" alt="background color" />
         </button>
-        <button onClick={() => setShowControls(!showControls())} aria-label="swap selected colors">
+        <button onClick={() => setShowControls(!showControls())} aria-label="toggle color controls">
           <img src="src/assets/tune_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
         </button>
-        <button ref={swapButton} onClick={swapSelected} disabled>
+        <button ref={swapButton} onClick={swapSelected} disabled aria-label="swap selected colors">
           <img style={swapDisabled()} src="src/assets/autorenew_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
         </button>
       </div>
