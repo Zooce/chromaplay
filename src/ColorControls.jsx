@@ -5,9 +5,8 @@ import { rgbToHsl, hslToRgb, hexToRgb, hexToHsl, calcContrastRatio } from "./col
 import styles from "./ColorControls.module.css";
 
 function ColorControls(props) {
-  const value = props.value;
 
-  const [x, y, z] = value ? (colorMode() === RGB ? hexToRgb(value) : hexToHsl(value)) : [0, 0, 0];
+  const [x, y, z] = colorMode() === RGB ? hexToRgb(untrack(props.value)) : hexToHsl(untrack(props.value));
 
   const [v1, setV1] = createSignal(x);
   const [v2, setV2] = createSignal(y);
@@ -41,7 +40,7 @@ function ColorControls(props) {
       case HSL: bg = `hsl(${x}, ${y}%, ${z}%)`; break;
     }
     let style = { "background-color": bg };
-    if (props.selected && props.selected()) {
+    if (props.selected != null && props.selected()) {
       style = { ...style, "outline": "dodgerblue solid 3px", "outline-offset": "0.1rem" };
     }
     return style;
@@ -56,8 +55,11 @@ function ColorControls(props) {
       color = hslToRgb(...color)
     }
     const hexColor = `#${color.map(c => c.toString(16).padStart(2, 0)).join('')}`;
-    if (props.setBackgroundColor) {
+    if (props.setBackgroundColor != null) {
       props.setBackgroundColor(hexColor);
+    }
+    if (props.setValue != null) {
+      props.setValue(hexColor); 
     }
     return hexColor;
   }

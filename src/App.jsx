@@ -12,13 +12,15 @@ function App() {
     equals: false,
   });
 
-  const createColor = (value) => {
+  const createColor = (v) => {
     const [selected, setSelected] = createSignal(false);
+    const [value, setValue] = createSignal(v);
     const newColor = {
       id: uuid(),
       selected,
       setSelected,
       value,
+      setValue,
     };
     return newColor; 
   }
@@ -107,6 +109,19 @@ function App() {
   };
   const load = <input id="loadPalette" type="file" accept=".json, .toml" onChange={loadColorPalette} style={{ display: "none" }} />;
 
+  const download = <a download="chromaplay.json" style={{ display: "none" }}></a>;
+  const downloadPalette = () => {
+    const palette = {
+      background: untrack(globalBackgroundColor),
+      colors: [],
+    };
+    for (const c of untrack(colors)) {
+      palette.colors.push(untrack(c.value));
+    }
+    download.setAttribute("href", `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(palette))}`);
+    download.click();
+  };
+
   return (
     <div class={styles.App}>
       <div class={styles.GlobalControls} style={{ "background-color": globalBackgroundColor() }}>
@@ -131,16 +146,19 @@ function App() {
         <button onClick={() => load.click()} aria-label="load color palette">
           <img src="src/assets/upload_FILL0_wght400_GRAD0_opsz48.svg" alt="load" />
         </button>
+        <button onClick={downloadPalette} aria-label="download color palette">
+          <img src="src/assets/download_FILL0_wght400_GRAD0_opsz48.svg" alt="download" />
+        </button>
       </div>
       <div class={styles.Colors}>
         <For each={colors()}>{(color, i) =>
-          <ColorControls id={`color_${color.id}`} index={i()} selected={color.selected} setSelected={color.setSelected} value={color.value} />
+          <ColorControls id={`color_${color.id}`} index={i()} selected={color.selected} setSelected={color.setSelected} value={color.value} setValue={color.setValue} />
         }</For>
       </div>
       <Show when={showBackgroundColor()}>
         <Portal>
           <div class={styles.BackgroundColorPopup}>
-            <ColorControls value={globalBackgroundColor()} setBackgroundColor={setGlobalBackgroundColor} always />
+            <ColorControls value={globalBackgroundColor} setBackgroundColor={setGlobalBackgroundColor} always />
           </div>
         </Portal>
       </Show>
