@@ -12,6 +12,9 @@ input[type="number"] {
   padding-left: 5px;
 }
 
+/* Credit to this article for helping me get the sliders styled:
+ * https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/ */
+
 /* reset range input styles */
 input[type="range"] {
   -webkit-appearance: none;
