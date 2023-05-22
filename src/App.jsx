@@ -12,14 +12,18 @@ function App() {
     equals: false,
   });
 
-  const addColor = () => {
+  const createColor = (value) => {
     const [selected, setSelected] = createSignal(false);
     const newColor = {
       id: uuid(),
       selected,
       setSelected,
+      value,
     };
-    setColors([...untrack(colors), newColor]);
+    return newColor; 
+  }
+  const addColor = () => {
+    setColors([...untrack(colors), createColor("#000000")]);
   };
 
   const deleteSelected = () => setColors(colors().filter(c => !c.selected()));
@@ -85,6 +89,24 @@ function App() {
     root.style.backgroundColor = globalBackgroundColor();
   });
 
+  const loadColorPalette = (event) => {
+    console.log(event.target.files[0]);
+    const target = event.target;
+    const fr = new FileReader();
+    fr.onload = () => {
+      target.value = null; // don't need the old filename anymore
+      const data = JSON.parse(fr.result);
+      setGlobalBackgroundColor(data.background);
+      const newColors = [];
+      for (const c of data.colors) {
+        newColors.push(createColor(c));
+      }
+      setColors(newColors);
+    };
+    fr.readAsText(event.target.files[0]);
+  };
+  const load = <input id="loadPalette" type="file" accept=".json, .toml" onChange={loadColorPalette} style={{ display: "none" }} />;
+
   return (
     <div class={styles.App}>
       <div class={styles.GlobalControls} style={{ "background-color": globalBackgroundColor() }}>
@@ -106,16 +128,19 @@ function App() {
         <button ref={swapButton} onClick={swapSelected} disabled aria-label="swap selected colors">
           <img style={swapDisabled()} src="src/assets/autorenew_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
         </button>
+        <button onClick={() => load.click()} aria-label="load color palette">
+          <img src="src/assets/upload_FILL0_wght400_GRAD0_opsz48.svg" alt="load" />
+        </button>
       </div>
       <div class={styles.Colors}>
         <For each={colors()}>{(color, i) =>
-          <ColorControls id={`color_${color.id}`} index={i()} selected={color.selected} setSelected={color.setSelected} />
+          <ColorControls id={`color_${color.id}`} index={i()} selected={color.selected} setSelected={color.setSelected} value={color.value} />
         }</For>
       </div>
       <Show when={showBackgroundColor()}>
         <Portal>
           <div class={styles.BackgroundColorPopup}>
-            <ColorControls initialColor={globalBackgroundColor()} setBackgroundColor={setGlobalBackgroundColor} />
+            <ColorControls value={globalBackgroundColor()} setBackgroundColor={setGlobalBackgroundColor} always />
           </div>
         </Portal>
       </Show>

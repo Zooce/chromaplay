@@ -5,9 +5,9 @@ import { rgbToHsl, hslToRgb, hexToRgb, hexToHsl, calcContrastRatio } from "./col
 import styles from "./ColorControls.module.css";
 
 function ColorControls(props) {
-  const initialColor = props.initialColor;
+  const value = props.value;
 
-  const [x, y, z] = initialColor ? (colorMode() === RGB ? hexToRgb(initialColor) : hexToHsl(initialColor)) : [0, 0, 0];
+  const [x, y, z] = value ? (colorMode() === RGB ? hexToRgb(value) : hexToHsl(value)) : [0, 0, 0];
 
   const [v1, setV1] = createSignal(x);
   const [v2, setV2] = createSignal(y);
@@ -104,7 +104,7 @@ function ColorControls(props) {
       <Show when={props.index != undefined}>
         <div class={styles.ColorBlock} style={backgroundColor()} onClick={colorClick}></div>
       </Show>
-      <Show when={showControls() || props.initialColor}>
+      <Show when={showControls() || props.always != undefined}>
         <div class={styles.ControlsContainer}>
           <div class={styles.InfoLine}>
             <input class={styles.HexInput} type="text" maxlength="7" value={hex()} onInput={hexInput} aria-label="hex input" />
