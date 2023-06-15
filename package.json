@@ -1,7 +1,7 @@
 {
   "name": "chromaplay",
   "version": "0.0.1",
-  "description": "",
+  "description": "A simpler color palette application.",
   "scripts": {
     "start": "vite",
     "dev": "vite",
@@ -10,12 +10,22 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "vite": "^4.1.1",
+    "esbuild": "^0.18.2",
+    "postcss": "^8.4.24",
+    "solid-start-node": "^0.2.26",
+    "vite": "^4.3.9",
     "vite-plugin-solid": "^2.5.0"
   },
   "dependencies": {
-    "solid-js": "^1.6.10",
+    "@solidjs/meta": "^0.28.5",
+    "@solidjs/router": "^0.8.2",
+    "solid-js": "^1.7.6",
+    "solid-start": "^0.2.26",
+    "undici": "^5.22.1",
     "uuid": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=16.8"
   },
   "type": "module"
 }
