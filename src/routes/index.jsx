@@ -1,13 +1,13 @@
-import styles from "./App.module.css";
-import ColorControls from "./ColorControls";
+import styles from "./index.module.css";
+import ColorControls from "../components/ColorControls";
 import { createSignal, untrack, onMount, createEffect, createMemo } from "solid-js";
 import {
   RGB, HSL, colorMode, setColorMode, globalBackgroundColor,
   setGlobalBackgroundColor, showControls, setShowControls
-} from "./global";
+} from "../utils/global";
 import { v4 as uuid } from "uuid";
 
-function App() {
+export default function Index() {
   const [colors, setColors] = createSignal([], {
     equals: false,
   });
@@ -91,8 +91,8 @@ function App() {
     root.style.backgroundColor = globalBackgroundColor();
   });
 
+  let load;
   const loadColorPalette = (event) => {
-    console.log(event.target.files[0]);
     const target = event.target;
     const fr = new FileReader();
     fr.onload = () => {
@@ -107,9 +107,8 @@ function App() {
     };
     fr.readAsText(event.target.files[0]);
   };
-  const load = <input id="loadPalette" type="file" accept=".json, .toml" onChange={loadColorPalette} style={{ display: "none" }} />;
 
-  const download = <a download="chromaplay.json" style={{ display: "none" }}></a>;
+  let download;
   const downloadPalette = () => {
     const palette = {
       background: untrack(globalBackgroundColor),
@@ -126,28 +125,30 @@ function App() {
     <div class={styles.App}>
       <div class={styles.GlobalControls} style={{ "background-color": globalBackgroundColor() }}>
         <button onClick={() => setColorMode(colorMode() === RGB ? HSL : RGB)} aria-label="color mode">
-          <img src="src/assets/palette_FILL0_wght400_GRAD0_opsz48.svg" alt="color mode" />
+          <img src="/icons/palette_FILL0_wght400_GRAD0_opsz48.svg" alt="color mode" />
         </button>
         <button onClick={addColor} aria-label="add color">
-          <img src="src/assets/add_FILL0_wght400_GRAD0_opsz48.svg" alt="add" />
+          <img src="/icons/add_FILL0_wght400_GRAD0_opsz48.svg" alt="add" />
         </button>
         <button ref={deleteButton} onClick={deleteSelected} disabled aria-label="delete selected colors">
-          <img style={deleteDisabled()} src="src/assets/delete_FILL0_wght400_GRAD0_opsz48.svg" alt="delete" />
+          <img style={deleteDisabled()} src="/icons/delete_FILL0_wght400_GRAD0_opsz48.svg" alt="delete" />
         </button>
         <button onClick={toggleBackgroundColorControls} aria-label="toggle background color controls">
-          <img src="src/assets/format_color_fill_FILL0_wght400_GRAD0_opsz48.svg" alt="background color" />
+          <img src="/icons/format_color_fill_FILL0_wght400_GRAD0_opsz48.svg" alt="background color" />
         </button>
         <button onClick={() => setShowControls(!showControls())} aria-label="toggle color controls">
-          <img src="src/assets/tune_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
+          <img src="/icons/tune_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
         </button>
         <button ref={swapButton} onClick={swapSelected} disabled aria-label="swap selected colors">
-          <img style={swapDisabled()} src="src/assets/autorenew_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
+          <img style={swapDisabled()} src="/icons/autorenew_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
         </button>
+        <input ref={load} id="loadPalette" type="file" accept=".json, .toml" onChange={loadColorPalette} style={{ display: "none" }} />
         <button onClick={() => load.click()} aria-label="load color palette">
-          <img src="src/assets/upload_FILL0_wght400_GRAD0_opsz48.svg" alt="load" />
+          <img src="/icons/upload_FILL0_wght400_GRAD0_opsz48.svg" alt="load" />
         </button>
+        <a ref={download} download="chromaplay.json" style={{ display: "none" }}></a>
         <button onClick={downloadPalette} aria-label="download color palette">
-          <img src="src/assets/download_FILL0_wght400_GRAD0_opsz48.svg" alt="download" />
+          <img src="/icons/download_FILL0_wght400_GRAD0_opsz48.svg" alt="download" />
         </button>
       </div>
       <div class={styles.Colors}>
@@ -165,5 +166,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

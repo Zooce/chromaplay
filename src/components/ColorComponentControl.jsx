@@ -1,8 +1,8 @@
 import styles from "./ColorComponentControl.module.css";
-import { RGB, HSL, colorMode } from "./global";
+import { RGB, HSL, colorMode } from "../utils/global";
 import { createMemo } from "solid-js";
 
-function ColorComponentControl(props) {
+export default function ColorComponentControl(props) {
   const maxValue = createMemo(() => colorMode() === RGB ? 255 : (props.index === 0 ? 360 : 100));
   const label = createMemo(() => colorMode()[props.index]);
 
@@ -39,5 +39,3 @@ function ColorComponentControl(props) {
     </div>
   );
 }
-
-export default ColorComponentControl;
