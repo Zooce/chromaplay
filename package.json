@@ -12,7 +12,7 @@
   "devDependencies": {
     "esbuild": "^0.18.2",
     "postcss": "^8.4.24",
-    "solid-start-node": "^0.2.26",
+    "solid-start-static": "^0.2.26",
     "vite": "^4.3.9"
   },
   "dependencies": {
