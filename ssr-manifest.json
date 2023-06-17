@@ -1,0 +1,92 @@
+{
+  "\u0000vite/preload-helper": [
+  ],
+  "node_modules/@solidjs/meta/dist/index.jsx": [
+  ],
+  "node_modules/@solidjs/router/dist/components.jsx": [
+  ],
+  "node_modules/@solidjs/router/dist/integration.js": [
+  ],
+  "node_modules/@solidjs/router/dist/lifecycle.js": [
+  ],
+  "node_modules/@solidjs/router/dist/routing.js": [
+  ],
+  "node_modules/@solidjs/router/dist/utils.js": [
+  ],
+  "node_modules/solid-js/dist/solid.js": [
+  ],
+  "node_modules/solid-js/web/dist/web.js": [
+  ],
+  "node_modules/solid-start/entry-client/StartClient.tsx": [
+  ],
+  "node_modules/solid-start/entry-client/mount.tsx": [
+  ],
+  "node_modules/solid-start/error-boundary/ErrorBoundary.tsx": [
+  ],
+  "node_modules/solid-start/root/Document.tsx": [
+  ],
+  "node_modules/solid-start/root/FileRoutes.tsx": [
+  ],
+  "node_modules/solid-start/root/Scripts.tsx": [
+  ],
+  "node_modules/solid-start/router.tsx": [
+  ],
+  "node_modules/solid-start/server/ServerContext.tsx": [
+  ],
+  "node_modules/solid-start/server/types.tsx": [
+  ],
+  "node_modules/uuid/dist/esm-browser/native.js": [
+    "/chromaplay/assets/index-e9eb836a.js",
+    "/chromaplay/assets/index-008da695.css"
+  ],
+  "node_modules/uuid/dist/esm-browser/rng.js": [
+    "/chromaplay/assets/index-e9eb836a.js",
+    "/chromaplay/assets/index-008da695.css"
+  ],
+  "node_modules/uuid/dist/esm-browser/stringify.js": [
+    "/chromaplay/assets/index-e9eb836a.js",
+    "/chromaplay/assets/index-008da695.css"
+  ],
+  "node_modules/uuid/dist/esm-browser/v4.js": [
+    "/chromaplay/assets/index-e9eb836a.js",
+    "/chromaplay/assets/index-008da695.css"
+  ],
+  "src/components/ColorComponentControl.jsx": [
+    "/chromaplay/assets/index-e9eb836a.js",
+    "/chromaplay/assets/index-008da695.css"
+  ],
+  "src/components/ColorComponentControl.module.css?used": [
+    "/chromaplay/assets/index-e9eb836a.js",
+    "/chromaplay/assets/index-008da695.css"
+  ],
+  "src/components/ColorControls.jsx": [
+    "/chromaplay/assets/index-e9eb836a.js",
+    "/chromaplay/assets/index-008da695.css"
+  ],
+  "src/components/ColorControls.module.css?used": [
+    "/chromaplay/assets/index-e9eb836a.js",
+    "/chromaplay/assets/index-008da695.css"
+  ],
+  "src/entry-client.jsx": [
+  ],
+  "src/root.css": [
+  ],
+  "src/root.jsx": [
+  ],
+  "src/routes/index.jsx": [
+    "/chromaplay/assets/index-e9eb836a.js",
+    "/chromaplay/assets/index-008da695.css"
+  ],
+  "src/routes/index.module.css?used": [
+    "/chromaplay/assets/index-e9eb836a.js",
+    "/chromaplay/assets/index-008da695.css"
+  ],
+  "src/utils/colorUtils.js": [
+    "/chromaplay/assets/index-e9eb836a.js",
+    "/chromaplay/assets/index-008da695.css"
+  ],
+  "src/utils/global.js": [
+    "/chromaplay/assets/index-e9eb836a.js",
+    "/chromaplay/assets/index-008da695.css"
+  ]
+}

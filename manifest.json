@@ -1,0 +1,32 @@
+{
+  "src/entry-client.css": {
+    "file": "assets/entry-client-dcbef313.css",
+    "src": "src/entry-client.css"
+  },
+  "src/entry-client.jsx": {
+    "css": [
+      "assets/entry-client-dcbef313.css"
+    ],
+    "dynamicImports": [
+      "src/routes/index.jsx"
+    ],
+    "file": "assets/entry-client-28c2a97b.js",
+    "isEntry": true,
+    "src": "src/entry-client.jsx"
+  },
+  "src/routes/index.css": {
+    "file": "assets/index-008da695.css",
+    "src": "src/routes/index.css"
+  },
+  "src/routes/index.jsx": {
+    "css": [
+      "assets/index-008da695.css"
+    ],
+    "file": "assets/index-e9eb836a.js",
+    "imports": [
+      "src/entry-client.jsx"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/routes/index.jsx"
+  }
+}

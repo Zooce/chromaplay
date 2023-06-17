@@ -1,0 +1,31 @@
+{
+  "/": [
+    {
+      "type": "script",
+      "href": "/chromaplay/assets/index-e9eb836a.js"
+    },
+    {
+      "type": "script",
+      "href": "/chromaplay/assets/entry-client-28c2a97b.js"
+    },
+    {
+      "type": "style",
+      "href": "/chromaplay/assets/entry-client-dcbef313.css"
+    },
+    {
+      "type": "style",
+      "href": "/chromaplay/assets/index-008da695.css"
+    }
+  ],
+  "entry-client": [
+    {
+      "type": "script",
+      "href": "/chromaplay/assets/entry-client-28c2a97b.js"
+    },
+    {
+      "type": "style",
+      "href": "/chromaplay/assets/entry-client-dcbef313.css"
+    }
+  ],
+  "index.html": []
+}
