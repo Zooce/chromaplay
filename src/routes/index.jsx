@@ -121,34 +121,35 @@ export default function Index() {
     download.click();
   };
 
+  // NOTE: since I'm hosting this on Github Pages (@ https://zooce.github.io/chromaplay) the images must have the `/chromaplay/` prefix
   return (
     <div class={styles.App}>
       <div class={styles.GlobalControls} style={{ "background-color": globalBackgroundColor() }}>
         <button onClick={() => setColorMode(colorMode() === RGB ? HSL : RGB)} aria-label="color mode">
-          <img src="/icons/palette_FILL0_wght400_GRAD0_opsz48.svg" alt="color mode" />
+          <img src="/chromaplay/icons/palette_FILL0_wght400_GRAD0_opsz48.svg" alt="color mode" />
         </button>
         <button onClick={addColor} aria-label="add color">
-          <img src="/icons/add_FILL0_wght400_GRAD0_opsz48.svg" alt="add" />
+          <img src="/chromaplay/icons/add_FILL0_wght400_GRAD0_opsz48.svg" alt="add" />
         </button>
         <button ref={deleteButton} onClick={deleteSelected} disabled aria-label="delete selected colors">
-          <img style={deleteDisabled()} src="/icons/delete_FILL0_wght400_GRAD0_opsz48.svg" alt="delete" />
+          <img style={deleteDisabled()} src="/chromaplay/icons/delete_FILL0_wght400_GRAD0_opsz48.svg" alt="delete" />
         </button>
         <button onClick={toggleBackgroundColorControls} aria-label="toggle background color controls">
-          <img src="/icons/format_color_fill_FILL0_wght400_GRAD0_opsz48.svg" alt="background color" />
+          <img src="/chromaplay/icons/format_color_fill_FILL0_wght400_GRAD0_opsz48.svg" alt="background color" />
         </button>
         <button onClick={() => setShowControls(!showControls())} aria-label="toggle color controls">
-          <img src="/icons/tune_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
+          <img src="/chromaplay/icons/tune_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
         </button>
         <button ref={swapButton} onClick={swapSelected} disabled aria-label="swap selected colors">
-          <img style={swapDisabled()} src="/icons/autorenew_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
+          <img style={swapDisabled()} src="/chromaplay/icons/autorenew_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
         </button>
         <input ref={load} id="loadPalette" type="file" accept=".json, .toml" onChange={loadColorPalette} style={{ display: "none" }} />
         <button onClick={() => load.click()} aria-label="load color palette">
-          <img src="/icons/upload_FILL0_wght400_GRAD0_opsz48.svg" alt="load" />
+          <img src="/chromaplay/icons/upload_FILL0_wght400_GRAD0_opsz48.svg" alt="load" />
         </button>
         <a ref={download} download="chromaplay.json" style={{ display: "none" }}></a>
         <button onClick={downloadPalette} aria-label="download color palette">
-          <img src="/icons/download_FILL0_wght400_GRAD0_opsz48.svg" alt="download" />
+          <img src="/chromaplay/icons/download_FILL0_wght400_GRAD0_opsz48.svg" alt="download" />
         </button>
       </div>
       <div class={styles.Colors}>
