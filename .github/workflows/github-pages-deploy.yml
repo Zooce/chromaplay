@@ -1,5 +1,11 @@
 name: CI
-on: [push]
+on:
+  push: # only deploy if the push actually makes changes to the app
+    paths-ignore:
+      - 'docs/**'
+      - 'README.md'
+      - 'LICENSE'
+  workflow_dispatch: # allow manual deployments
 permissions:
   contents: write
 jobs:
