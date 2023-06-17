@@ -2,12 +2,6 @@
 
 A color palette experimentation tool.
 
-## Getting Started
+<https://zooce.github.io/chromaplay>
 
-To run the application locally, download or clone this repository and run:
-
-```bash
-npm run dev
-```
-
-Then open http://localhost:3000 in your browser.
+![screenshot](https://github.com/Zooce/chromaplay/blob/main/docs/chromaplay.png)
