@@ -2,11 +2,11 @@
   "/": [
     {
       "type": "script",
-      "href": "/chromaplay/assets/index-f7f64c50.js"
+      "href": "/chromaplay/assets/index-70f19387.js"
     },
     {
       "type": "script",
-      "href": "/chromaplay/assets/entry-client-75398596.js"
+      "href": "/chromaplay/assets/entry-client-41c0b43d.js"
     },
     {
       "type": "style",
@@ -14,13 +14,13 @@
     },
     {
       "type": "style",
-      "href": "/chromaplay/assets/index-008da695.css"
+      "href": "/chromaplay/assets/index-2fc5cf12.css"
     }
   ],
   "entry-client": [
     {
       "type": "script",
-      "href": "/chromaplay/assets/entry-client-75398596.js"
+      "href": "/chromaplay/assets/entry-client-41c0b43d.js"
     },
     {
       "type": "style",
