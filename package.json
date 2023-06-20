@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "solid-start dev",
-    "build": "solid-start build",
-    "start": "solid-start start"
+    "build": "solid-start build"
   },
   "devDependencies": {
     "esbuild": "^0.18.2",
