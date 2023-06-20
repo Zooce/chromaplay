@@ -36,35 +36,35 @@
   "node_modules/solid-start/server/types.tsx": [
   ],
   "node_modules/uuid/dist/esm-browser/native.js": [
-    "/chromaplay/assets/index-47b04605.js",
+    "/chromaplay/assets/index-31754acf.js",
     "/chromaplay/assets/index-2fc5cf12.css"
   ],
   "node_modules/uuid/dist/esm-browser/rng.js": [
-    "/chromaplay/assets/index-47b04605.js",
+    "/chromaplay/assets/index-31754acf.js",
     "/chromaplay/assets/index-2fc5cf12.css"
   ],
   "node_modules/uuid/dist/esm-browser/stringify.js": [
-    "/chromaplay/assets/index-47b04605.js",
+    "/chromaplay/assets/index-31754acf.js",
     "/chromaplay/assets/index-2fc5cf12.css"
   ],
   "node_modules/uuid/dist/esm-browser/v4.js": [
-    "/chromaplay/assets/index-47b04605.js",
+    "/chromaplay/assets/index-31754acf.js",
     "/chromaplay/assets/index-2fc5cf12.css"
   ],
   "src/components/ColorComponentControl.jsx": [
-    "/chromaplay/assets/index-47b04605.js",
+    "/chromaplay/assets/index-31754acf.js",
     "/chromaplay/assets/index-2fc5cf12.css"
   ],
   "src/components/ColorComponentControl.module.css?used": [
-    "/chromaplay/assets/index-47b04605.js",
+    "/chromaplay/assets/index-31754acf.js",
     "/chromaplay/assets/index-2fc5cf12.css"
   ],
   "src/components/ColorControls.jsx": [
-    "/chromaplay/assets/index-47b04605.js",
+    "/chromaplay/assets/index-31754acf.js",
     "/chromaplay/assets/index-2fc5cf12.css"
   ],
   "src/components/ColorControls.module.css?used": [
-    "/chromaplay/assets/index-47b04605.js",
+    "/chromaplay/assets/index-31754acf.js",
     "/chromaplay/assets/index-2fc5cf12.css"
   ],
   "src/entry-client.jsx": [
@@ -74,19 +74,19 @@
   "src/root.jsx": [
   ],
   "src/routes/index.jsx": [
-    "/chromaplay/assets/index-47b04605.js",
+    "/chromaplay/assets/index-31754acf.js",
     "/chromaplay/assets/index-2fc5cf12.css"
   ],
   "src/routes/index.module.css?used": [
-    "/chromaplay/assets/index-47b04605.js",
+    "/chromaplay/assets/index-31754acf.js",
     "/chromaplay/assets/index-2fc5cf12.css"
   ],
   "src/utils/colorUtils.js": [
-    "/chromaplay/assets/index-47b04605.js",
+    "/chromaplay/assets/index-31754acf.js",
     "/chromaplay/assets/index-2fc5cf12.css"
   ],
   "src/utils/global.js": [
-    "/chromaplay/assets/index-47b04605.js",
+    "/chromaplay/assets/index-31754acf.js",
     "/chromaplay/assets/index-2fc5cf12.css"
   ]
 }
