@@ -10,19 +10,19 @@
     "dynamicImports": [
       "src/routes/index.jsx"
     ],
-    "file": "assets/entry-client-9fe12b8e.js",
+    "file": "assets/entry-client-aa9256fc.js",
     "isEntry": true,
     "src": "src/entry-client.jsx"
   },
   "src/routes/index.css": {
-    "file": "assets/index-2fc5cf12.css",
+    "file": "assets/index-babbc409.css",
     "src": "src/routes/index.css"
   },
   "src/routes/index.jsx": {
     "css": [
-      "assets/index-2fc5cf12.css"
+      "assets/index-babbc409.css"
     ],
-    "file": "assets/index-31754acf.js",
+    "file": "assets/index-23971165.js",
     "imports": [
       "src/entry-client.jsx"
     ],
