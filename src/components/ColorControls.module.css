@@ -10,6 +10,7 @@
 .ColorBlock {
   height: 10rem;
   width: 100%;
+  min-width: 18rem;
   border-radius: 2px;
 }
 
