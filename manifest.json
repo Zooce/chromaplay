@@ -10,7 +10,7 @@
     "dynamicImports": [
       "src/routes/index.jsx"
     ],
-    "file": "assets/entry-client-119c448b.js",
+    "file": "assets/entry-client-207c198a.js",
     "isEntry": true,
     "src": "src/entry-client.jsx"
   },
@@ -22,7 +22,7 @@
     "css": [
       "assets/index-245e9b0a.css"
     ],
-    "file": "assets/index-9865e153.js",
+    "file": "assets/index-fad36589.js",
     "imports": [
       "src/entry-client.jsx"
     ],
