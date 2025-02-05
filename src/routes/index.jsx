@@ -22,7 +22,7 @@ export default function Index() {
       value,
       setValue,
     };
-    return newColor; 
+    return newColor;
   }
   const addColor = () => {
     setColors([...untrack(colors), createColor("#000000")]);
@@ -42,8 +42,18 @@ export default function Index() {
     setColors(newColors);
   };
 
+  const [showBackgroundColor, setShowBackgroundColor] = createSignal(false);
+  const toggleBackgroundColorControls = () => {
+    setShowBackgroundColor(!showBackgroundColor());
+  }
+
   onMount(() => {
     addColor();
+    document.body.addEventListener('click', () => {
+      console.log('deselecting all');
+      untrack(colors).forEach(c => c.setSelected(false));
+      setShowBackgroundColor(false);
+    });
   });
 
   const colorsSelected = createMemo(() => colors().some(c => c.selected()));
@@ -81,10 +91,6 @@ export default function Index() {
     }
   });
 
-  const [showBackgroundColor, setShowBackgroundColor] = createSignal(false);
-  const toggleBackgroundColorControls = () => {
-    setShowBackgroundColor(!showBackgroundColor());
-  }
 
   createEffect(() => {
     const root = document.documentElement;
@@ -121,34 +127,39 @@ export default function Index() {
     download.click();
   };
 
+  const stopProp = (event, action) => {
+    event.stopPropagation();
+    action();
+  };
+
   // NOTE: since I'm hosting this on Github Pages (@ https://zooce.github.io/chromaplay) the images must have the `/chromaplay/` prefix
   return (
     <div class={styles.App}>
       <div class={styles.GlobalControls} style={{ "background-color": globalBackgroundColor() }}>
-        <button onClick={() => setColorMode(colorMode() === RGB ? HSL : RGB)} aria-label="color mode">
+        <button onClick={e => stopProp(e, () => setColorMode(colorMode() === RGB ? HSL : RGB))} aria-label="color mode">
           <img src="/chromaplay/icons/palette_FILL0_wght400_GRAD0_opsz48.svg" alt="color mode" />
         </button>
-        <button onClick={addColor} aria-label="add color">
+        <button onClick={e => stopProp(e, addColor)} aria-label="add color">
           <img src="/chromaplay/icons/add_FILL0_wght400_GRAD0_opsz48.svg" alt="add" />
         </button>
-        <button ref={deleteButton} onClick={deleteSelected} disabled aria-label="delete selected colors">
+        <button ref={deleteButton} onClick={e => stopProp(e, deleteSelected)} disabled aria-label="delete selected colors">
           <img style={deleteDisabled()} src="/chromaplay/icons/delete_FILL0_wght400_GRAD0_opsz48.svg" alt="delete" />
         </button>
-        <button onClick={toggleBackgroundColorControls} aria-label="toggle background color controls">
+        <button onClick={e => stopProp(e, toggleBackgroundColorControls)} aria-label="toggle background color controls">
           <img src="/chromaplay/icons/format_color_fill_FILL0_wght400_GRAD0_opsz48.svg" alt="background color" />
         </button>
-        <button onClick={() => setShowControls(!showControls())} aria-label="toggle color controls">
+        <button onClick={e => stopProp(e, () => setShowControls(!showControls()))} aria-label="toggle color controls">
           <img src="/chromaplay/icons/tune_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
         </button>
-        <button ref={swapButton} onClick={swapSelected} disabled aria-label="swap selected colors">
+        <button ref={swapButton} onClick={e => stopProp(e, swapSelected)} disabled aria-label="swap selected colors">
           <img style={swapDisabled()} src="/chromaplay/icons/autorenew_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
         </button>
         <input ref={load} id="loadPalette" type="file" accept=".json, .toml" onChange={loadColorPalette} style={{ display: "none" }} />
-        <button onClick={() => load.click()} aria-label="load color palette">
+        <button onClick={e => stopProp(e, () => load.click())} aria-label="load color palette">
           <img src="/chromaplay/icons/upload_FILL0_wght400_GRAD0_opsz48.svg" alt="load" />
         </button>
         <a ref={download} download="chromaplay.json" style={{ display: "none" }}></a>
-        <button onClick={downloadPalette} aria-label="download color palette">
+        <button onClick={e => stopProp(e, downloadPalette)} aria-label="download color palette">
           <img src="/chromaplay/icons/download_FILL0_wght400_GRAD0_opsz48.svg" alt="download" />
         </button>
       </div>

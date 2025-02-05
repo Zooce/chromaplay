@@ -104,7 +104,7 @@ export default function ColorControls(props) {
   return (
     <div class={styles.ColorControls}>
       <Show when={props.index != undefined}>
-        <div class={styles.ColorBlock} style={backgroundColor()} onClick={colorClick}></div>
+        <div class={styles.ColorBlock} style={backgroundColor()} onClick={(e) => {e.stopPropagation(); colorClick();}}></div>
       </Show>
       <Show when={showControls() || props.always != undefined}>
         <div class={styles.ControlsContainer}>
