@@ -2,15 +2,15 @@
   "/": [
     {
       "type": "script",
-      "href": "/chromaplay/assets/index-1f1eeafd.js"
+      "href": "/chromaplay/assets/index-78ae614a.js"
     },
     {
       "type": "script",
-      "href": "/chromaplay/assets/entry-client-3094b5c6.js"
+      "href": "/chromaplay/assets/entry-client-fa751130.js"
     },
     {
       "type": "style",
-      "href": "/chromaplay/assets/entry-client-dc1e0c48.css"
+      "href": "/chromaplay/assets/entry-client-3341fd7d.css"
     },
     {
       "type": "style",
@@ -20,11 +20,11 @@
   "entry-client": [
     {
       "type": "script",
-      "href": "/chromaplay/assets/entry-client-3094b5c6.js"
+      "href": "/chromaplay/assets/entry-client-fa751130.js"
     },
     {
       "type": "style",
-      "href": "/chromaplay/assets/entry-client-dc1e0c48.css"
+      "href": "/chromaplay/assets/entry-client-3341fd7d.css"
     }
   ],
   "index.html": []
