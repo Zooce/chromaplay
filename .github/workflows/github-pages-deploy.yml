@@ -15,11 +15,14 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
+      - name: bun setup
+        uses: oven-sh/setup-bun@v2
+
       - name: install
-        run: npm ci
+        run: bun install
 
       - name: build
-        run: npm run build
+        run: bun run build
 
       - name: deploy
         uses: JamesIves/github-pages-deploy-action@v4

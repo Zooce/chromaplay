@@ -9,18 +9,18 @@
     "build": "solid-start build"
   },
   "devDependencies": {
-    "esbuild": "^0.18.2",
-    "postcss": "^8.4.24",
-    "solid-start-static": "^0.2.26",
-    "vite": "^4.5.2"
+    "esbuild": "^0.18.20",
+    "postcss": "^8.5.3",
+    "solid-start-static": "^0.2.32",
+    "vite": "^4.5.14"
   },
   "dependencies": {
-    "@solidjs/meta": "^0.28.5",
-    "@solidjs/router": "^0.8.2",
-    "solid-js": "^1.9.5",
-    "solid-start": "^0.2.26",
-    "undici": "^5.22.1",
-    "uuid": "^9.0.0"
+    "@solidjs/meta": "^0.28.7",
+    "@solidjs/router": "^0.8.4",
+    "solid-js": "^1.9.7",
+    "solid-start": "^0.2.32",
+    "undici": "^5.29.0",
+    "uuid": "^9.0.1"
   },
   "engines": {
     "node": ">=16.8"
