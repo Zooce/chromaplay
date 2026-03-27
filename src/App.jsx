@@ -1,13 +1,13 @@
-import styles from "./index.module.css";
-import ColorControls from "../components/ColorControls";
+import styles from "./App.module.css";
+import ColorControls from "./ColorControls";
 import { createSignal, untrack, onMount, createEffect, createMemo } from "solid-js";
 import {
   RGB, HSL, colorMode, setColorMode, globalBackgroundColor,
   setGlobalBackgroundColor, showControls, setShowControls
-} from "../utils/global";
+} from "./global";
 import { v4 as uuid } from "uuid";
 
-export default function Index() {
+const App = () => {
   const [colors, setColors] = createSignal([], {
     equals: false,
   });
@@ -22,7 +22,7 @@ export default function Index() {
       value,
       setValue,
     };
-    return newColor; 
+    return newColor;
   }
   const addColor = () => {
     setColors([...untrack(colors), createColor("#000000")]);
@@ -166,4 +166,6 @@ export default function Index() {
       </Show>
     </div>
   );
-}
+};
+
+export default App;

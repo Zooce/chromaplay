@@ -1,7 +1,7 @@
 import { createSignal, createMemo, createEffect, untrack, Show } from "solid-js";
 import ColorComponentControl from "./ColorComponentControl";
-import { RGB, HSL, colorMode, globalBackgroundColor, showControls } from "../utils/global";
-import { rgbToHsl, hslToRgb, hexToRgb, hexToHsl, calcContrastRatio } from "../utils/colorUtils";
+import { RGB, HSL, colorMode, globalBackgroundColor, showControls } from "./global";
+import { rgbToHsl, hslToRgb, hexToRgb, hexToHsl, calcContrastRatio } from "./colorUtils";
 import styles from "./ColorControls.module.css";
 
 export default function ColorControls(props) {
@@ -59,7 +59,7 @@ export default function ColorControls(props) {
       props.setBackgroundColor(hexColor);
     }
     if (props.setValue != null) {
-      props.setValue(hexColor); 
+      props.setValue(hexColor);
     }
     return hexColor;
   }

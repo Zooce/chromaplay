@@ -1,5 +1,5 @@
 import styles from "./ColorComponentControl.module.css";
-import { RGB, HSL, colorMode } from "../utils/global";
+import { RGB, HSL, colorMode } from "./global";
 import { createMemo } from "solid-js";
 
 export default function ColorComponentControl(props) {
