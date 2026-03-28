@@ -2,7 +2,10 @@
   display: flex;
   padding: 4rem 1rem;
   font-family: 'Roboto Mono', monospace;
-  overscroll-behavior: contain;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: auto;
+  overscroll-behavior: none;
 }
 
 .GlobalControls {
@@ -21,6 +24,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-self: flex-start;
   gap: 1rem;
   margin-left: 4rem;
   width: calc(100% - 4rem);
