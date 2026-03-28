@@ -33,9 +33,9 @@ export default function ColorComponentControl(props) {
 
   return (
     <div class={styles.ColorComponentControl}>
-      <label for={label()}>{label()}</label>
+      <label for={props.id}>{label()}</label>
       <input type="range" min="0" max={maxValue()} value={props.value} onInput={onInput} aria-label={`${label()} component slider`}/>
-      <input type="number" min="0" max={maxValue()} value={props.value} onInput={onInput} aria-label={`${label()} component number input`} />
+      <input id={props.id} type="number" min="0" max={maxValue()} value={props.value} onInput={onInput} aria-label={`${label()} component number input`} />
     </div>
   );
 }

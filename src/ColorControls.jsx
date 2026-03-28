@@ -5,7 +5,6 @@ import { rgbToHsl, hslToRgb, hexToRgb, hexToHsl, calcContrastRatio } from "./col
 import styles from "./ColorControls.module.css";
 
 export default function ColorControls(props) {
-
   const [x, y, z] = colorMode() === RGB ? hexToRgb(untrack(props.value)) : hexToHsl(untrack(props.value));
 
   const [v1, setV1] = createSignal(x);
@@ -109,16 +108,16 @@ export default function ColorControls(props) {
       <Show when={showControls() || props.always != undefined}>
         <div class={styles.ControlsContainer}>
           <div class={styles.InfoLine}>
-            <input class={styles.HexInput} type="text" maxlength="7" value={hex()} onInput={hexInput} aria-label="hex input" />
+            <input class={styles.HexInput} name={`hex-${props.index}`} type="text" maxlength="7" value={hex()} onInput={hexInput} aria-label="hex input" />
             <div class={styles.ContrastRatio}>
               <span style={contrastRatioStyle()}>{contrastRatio()}</span>
               <span>:1</span>
             </div>
           </div>
           <div class={styles.Sliders}>
-            <ColorComponentControl index={0} value={v1()} setValue={setV1} />
-            <ColorComponentControl index={1} value={v2()} setValue={setV2} />
-            <ColorComponentControl index={2} value={v3()} setValue={setV3} />
+            <ColorComponentControl id={`${props.id}-0`} index={0} value={v1()} setValue={setV1} />
+            <ColorComponentControl id={`${props.id}-1`} index={1} value={v2()} setValue={setV2} />
+            <ColorComponentControl id={`${props.id}-2`}  index={2} value={v3()} setValue={setV3} />
           </div>
         </div>
       </Show>
