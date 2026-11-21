@@ -1,67 +1,36 @@
-import { createSignal, createMemo, createEffect, untrack, Show } from "solid-js";
+import { createMemo, untrack, Show } from "solid-js";
 import ColorComponentControl from "./ColorComponentControl";
 import { RGB, HSL, colorMode, globalBackgroundColor, showControls } from "./global";
 import { rgbToHsl, hslToRgb, hexToRgb, hexToHsl, calcContrastRatio } from "./colorUtils";
 import styles from "./ColorControls.module.css";
 
+const toHex = (a, b, c) => {
+  let color = [a, b, c];
+  if (untrack(colorMode) === HSL) {
+    color = hslToRgb(...color);
+  }
+  return `#${color.map((n) => n.toString(16).padStart(2, 0)).join("")}`;
+};
+
 export default function ColorControls(props) {
-  const [x, y, z] = colorMode() === RGB ? hexToRgb(untrack(props.value)) : hexToHsl(untrack(props.value));
+  const components = createMemo(() => colorMode() === RGB ? hexToRgb(props.value) : hexToHsl(props.value));
 
-  const [v1, setV1] = createSignal(x);
-  const [v2, setV2] = createSignal(y);
-  const [v3, setV3] = createSignal(z);
+  const publish = (a, b, c) => {
+    const hexColor = toHex(a, b, c);
+    if (props.setBackgroundColor != null) props.setBackgroundColor(hexColor);
+    if (props.setValue != null) props.setValue(hexColor);
+  };
 
-  // recalculate the values whenever `colorMode` changes
-  createEffect((prevColorMode) => {
-    if (prevColorMode === colorMode()) {
-      return;
-    }
-    if (colorMode() === RGB) {
-      const [r, g, b] = hslToRgb(untrack(v1), untrack(v2), untrack(v3));
-      setV1(r);
-      setV2(g);
-      setV3(b);
-    } else {
-      const [h, s, l] = rgbToHsl(untrack(v1), untrack(v2), untrack(v3));
-      setV1(h);
-      setV2(s);
-      setV3(l);
-    }
-    return colorMode();
-  }, colorMode());
-
-  // update the background color whenever a color component value changes
   const backgroundColor = createMemo(() => {
-    const x = v1(), y = v2(), z = v3();
-    let bg;
-    switch (untrack(colorMode)) {
-      case RGB: bg = `rgb(${x}, ${y}, ${z})`; break;
-      case HSL: bg = `hsl(${x}, ${y}%, ${z}%)`; break;
-    }
-    let style = { "background-color": bg };
-    if (props.selected != null && props.selected()) {
-      style = { ...style, "outline": "dodgerblue solid 3px", "outline-offset": "0.1rem" };
+    const style = { "background-color": props.value };
+    if (props.selected) {
+      style.outline = "dodgerblue solid 3px";
+      style["outline-offset"] = "0.1rem";
     }
     return style;
   });
 
-  const colorClick = () => { if (props.selected) props.setSelected(!props.selected()); };
-
-  // update the hex value whenever a color component value changes
-  const hex = () => {
-    let color = [v1(), v2(), v3()];
-    if (untrack(colorMode) === HSL) {
-      color = hslToRgb(...color)
-    }
-    const hexColor = `#${color.map(c => c.toString(16).padStart(2, 0)).join('')}`;
-    if (props.setBackgroundColor != null) {
-      props.setBackgroundColor(hexColor);
-    }
-    if (props.setValue != null) {
-      props.setValue(hexColor);
-    }
-    return hexColor;
-  }
+  const colorClick = () => { if (props.setSelected) props.setSelected(!props.selected); };
 
   const hexInput = (event) => {
     let newHex = event.target.value;
@@ -71,28 +40,19 @@ export default function ColorControls(props) {
       return;
     }
     try {
-      const [r, g, b] = hexToRgb(newHex);
-      let values = [r, g, b];
-      if (untrack(colorMode) === HSL) {
-        values = rgbToHsl(r, g, b);
-      }
-      setV1(values[0]);
-      setV2(values[1]);
-      setV3(values[2]);
+      const canonical = toHex(...(untrack(colorMode) === HSL ? rgbToHsl(...hexToRgb(newHex)) : hexToRgb(newHex)));
+      if (props.setBackgroundColor != null) props.setBackgroundColor(canonical);
+      if (props.setValue != null) props.setValue(canonical);
     } catch {
       // invalid hex color input - just ignore it
     }
   }
 
-  const [contrastRatio, setContrastRatio] = createSignal(0);
-  createEffect(() => {
-    let rgb1 = [v1(), v2(), v3()];
-    let rgb2 = hexToRgb(globalBackgroundColor());
-    if (untrack(colorMode) === HSL) {
-      rgb1 = hslToRgb(...rgb1)
-    }
+  const contrastRatio = createMemo(() => {
+    const rgb1 = hexToRgb(props.value);
+    const rgb2 = hexToRgb(globalBackgroundColor());
     const cr = calcContrastRatio(rgb1, rgb2);
-    setContrastRatio((Math.floor(cr * 100) / 100).toFixed(2));
+    return (Math.floor(cr * 100) / 100).toFixed(2);
   });
 
   const contrastRatioStyle = () => {
@@ -108,16 +68,16 @@ export default function ColorControls(props) {
       <Show when={showControls() || props.always != undefined}>
         <div class={styles.ControlsContainer}>
           <div class={styles.InfoLine}>
-            <input class={styles.HexInput} name={`hex-${props.index}`} type="text" maxlength="7" value={hex()} onInput={hexInput} aria-label="hex input" />
+            <input class={styles.HexInput} name={`hex-${props.index}`} type="text" maxlength="7" value={props.value} onInput={hexInput} aria-label="hex input" />
             <div class={styles.ContrastRatio}>
               <span style={contrastRatioStyle()}>{contrastRatio()}</span>
               <span>:1</span>
             </div>
           </div>
           <div class={styles.Sliders}>
-            <ColorComponentControl id={`${props.id}-0`} index={0} value={v1()} setValue={setV1} />
-            <ColorComponentControl id={`${props.id}-1`} index={1} value={v2()} setValue={setV2} />
-            <ColorComponentControl id={`${props.id}-2`}  index={2} value={v3()} setValue={setV3} />
+            <ColorComponentControl id={`${props.id}-0`} index={0} value={components()[0]} setValue={(n) => publish(n, components()[1], components()[2])} />
+            <ColorComponentControl id={`${props.id}-1`} index={1} value={components()[1]} setValue={(n) => publish(components()[0], n, components()[2])} />
+            <ColorComponentControl id={`${props.id}-2`} index={2} value={components()[2]} setValue={(n) => publish(components()[0], components()[1], n)} />
           </div>
         </div>
       </Show>

@@ -8,24 +8,29 @@ on:
   workflow_dispatch: # allow manual deployments
 permissions:
   contents: write
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7.0.1
 
-      - name: bun setup
-        uses: oven-sh/setup-bun@v2
-
-      - name: install
-        run: bun install
+      - name: install tools
+        uses: jdx/mise-action@v5.2.9
+        with:
+          version: "2026.9.6"
+          install: true
+          cache: true
 
       - name: build
-        run: bun run build
+        run: mise run build
 
       - name: deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: JamesIves/github-pages-deploy-action@v4.9.0
         with:
           branch: gh-pages
           folder: dist

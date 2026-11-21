@@ -1,6 +1,7 @@
 import styles from "./App.module.css";
 import ColorControls from "./ColorControls";
-import { createSignal, untrack, onMount, createEffect, createMemo } from "solid-js";
+import { createSignal, untrack, createEffect, createMemo, For, Show } from "solid-js";
+import { Portal } from "@solidjs/web";
 import {
   RGB, HSL, colorMode, setColorMode, globalBackgroundColor,
   setGlobalBackgroundColor, showControls, setShowControls
@@ -8,10 +9,6 @@ import {
 import { v4 as uuid } from "uuid";
 
 const App = () => {
-  const [colors, setColors] = createSignal([], {
-    equals: false,
-  });
-
   const createColor = (v) => {
     const [selected, setSelected] = createSignal(false);
     const [value, setValue] = createSignal(v);
@@ -24,6 +21,11 @@ const App = () => {
     };
     return newColor;
   }
+
+  const [colors, setColors] = createSignal([createColor("#000000")], {
+    equals: false,
+  });
+
   const addColor = () => {
     setColors([...untrack(colors), createColor("#000000")]);
   };
@@ -42,20 +44,8 @@ const App = () => {
     setColors(newColors);
   };
 
-  onMount(() => {
-    addColor();
-  });
-
   const colorsSelected = createMemo(() => colors().some(c => c.selected()));
 
-  let deleteButton;
-  createEffect(() => {
-    if (colorsSelected()) {
-      deleteButton.removeAttribute('disabled');
-    } else {
-      deleteButton.setAttribute('disabled', '');
-    }
-  });
   const deleteDisabled = createMemo(() => {
     if (colorsSelected()) {
       return { opacity: 1.0 };
@@ -65,14 +55,6 @@ const App = () => {
   });
 
   const twoColorsSelected = createMemo(() => colors().filter(c => c.selected()).length === 2);
-  let swapButton;
-  createEffect(() => {
-    if (twoColorsSelected()) {
-      swapButton.removeAttribute('disabled');
-    } else {
-      swapButton.setAttribute('disabled', '');
-    }
-  });
   const swapDisabled = createMemo(() => {
     if (twoColorsSelected()) {
       return { opacity: 1.0 };
@@ -86,10 +68,12 @@ const App = () => {
     setShowBackgroundColor(!showBackgroundColor());
   }
 
-  createEffect(() => {
-    const root = document.documentElement;
-    root.style.backgroundColor = globalBackgroundColor();
-  });
+  createEffect(
+    () => globalBackgroundColor(),
+    (color) => {
+      document.documentElement.style.backgroundColor = color;
+    },
+  );
 
   let load;
   const loadColorPalette = (event) => {
@@ -131,7 +115,7 @@ const App = () => {
         <button onClick={addColor} aria-label="add color">
           <img src="/chromaplay/icons/add_FILL0_wght400_GRAD0_opsz48.svg" alt="add" />
         </button>
-        <button ref={deleteButton} onClick={deleteSelected} disabled aria-label="delete selected colors">
+        <button onClick={deleteSelected} disabled={!colorsSelected()} aria-label="delete selected colors">
           <img style={deleteDisabled()} src="/chromaplay/icons/delete_FILL0_wght400_GRAD0_opsz48.svg" alt="delete" />
         </button>
         <button onClick={toggleBackgroundColorControls} aria-label="toggle background color controls">
@@ -140,7 +124,7 @@ const App = () => {
         <button onClick={() => setShowControls(!showControls())} aria-label="toggle color controls">
           <img src="/chromaplay/icons/tune_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
         </button>
-        <button ref={swapButton} onClick={swapSelected} disabled aria-label="swap selected colors">
+        <button onClick={swapSelected} disabled={!twoColorsSelected()} aria-label="swap selected colors">
           <img style={swapDisabled()} src="/chromaplay/icons/autorenew_FILL0_wght400_GRAD0_opsz48.svg" alt="swap" />
         </button>
         <input ref={load} id="loadPalette" type="file" accept=".json, .toml" onChange={loadColorPalette} style={{ display: "none" }} />
@@ -154,13 +138,13 @@ const App = () => {
       </div>
       <div class={styles.Colors}>
         <For each={colors()}>{(color, i) =>
-          <ColorControls id={`color_${color.id}`} index={i()} selected={color.selected} setSelected={color.setSelected} value={color.value} setValue={color.setValue} />
+          <ColorControls id={`color_${color.id}`} index={i()} selected={color.selected()} setSelected={color.setSelected} value={color.value()} setValue={color.setValue} />
         }</For>
       </div>
       <Show when={showBackgroundColor()}>
         <Portal>
           <div class={styles.BackgroundColorPopup}>
-            <ColorControls value={globalBackgroundColor} setBackgroundColor={setGlobalBackgroundColor} always />
+            <ColorControls value={globalBackgroundColor()} setBackgroundColor={setGlobalBackgroundColor} always />
           </div>
         </Portal>
       </Show>

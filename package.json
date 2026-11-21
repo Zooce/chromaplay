@@ -4,6 +4,11 @@
   "description": "A simpler color palette application.",
   "license": "MIT",
   "type": "module",
+  "packageManager": "bun@1.4.5",
+  "engines": {
+    "bun": "1.4.5",
+    "node": "26.13.1"
+  },
   "scripts": {
     "start": "vite",
     "dev": "vite",
@@ -11,13 +16,13 @@
     "serve": "vite preview"
   },
   "devDependencies": {
-    "solid-devtools": "^0.34.3",
-    "typescript": "^5.7.2",
-    "vite": "^7.1.4",
-    "vite-plugin-solid": "^2.11.8"
+    "@solidjs/vite-plugin": "^3.0.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
   },
   "dependencies": {
-    "solid-js": "^1.9.5",
-    "uuid": "^13.0.0"
+    "@solidjs/web": "^2.0.3",
+    "solid-js": "^2.0.3",
+    "uuid": "^14.0.3"
   }
 }
